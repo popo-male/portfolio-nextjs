@@ -1,10 +1,46 @@
 "use client";
+import type { FormEvent } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Send, MapPin } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { portfolioData } from "@/lib/data";
 
 export default function ContactSection() {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStatus("sending");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const body = new URLSearchParams();
+
+    formData.forEach((value, key) => {
+      body.append(key, value.toString());
+    });
+
+    try {
+      const response = await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      form.reset();
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
+  }
+
   return (
     <footer
       id="contact"
@@ -17,9 +53,11 @@ export default function ContactSection() {
             <h2 className="text-sm font-bold text-primary uppercase tracking-widest mb-2">
               Contact
             </h2>
-            <h3 className="text-4xl font-bold mb-6">Let's work together!</h3>
+            <h3 className="text-4xl font-bold mb-6">
+              Let&apos;s work together!
+            </h3>
             <p className="text-textMuted mb-8 leading-relaxed">
-              I'm always open to discussing new opportunities, creative
+              I&apos;m always open to discussing new opportunities, creative
               projects, or partnerships.
             </p>
 
@@ -59,16 +97,20 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="space-y-4"
-            name="contact" // Required for Netlify
-            method="POST" // Required for Netlify
-            data-netlify="true" // Tells Netlify to parse this form
-            action="/?success=true" // Where to redirect after sending
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
           >
-            {/* This hidden input is strictly required by Netlify for React apps */}
             <input type="hidden" name="form-name" value="contact" />
+            <p className="hidden">
+              <label>
+                Don&apos;t fill this out: <input name="bot-field" />
+              </label>
+            </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* MUST add 'name' attributes to all inputs so Netlify knows what data is what */}
               <input
                 type="text"
                 name="name"
@@ -100,8 +142,19 @@ export default function ContactSection() {
             ></textarea>
 
             <button type="submit" className="...">
-              Send Message <Send size={18} />
+              {status === "sending" ? "Sending..." : "Send Message"}{" "}
+              <Send size={18} />
             </button>
+            {status === "sent" && (
+              <p className="text-sm text-primary">
+                Thanks, your message has been sent.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="text-sm text-red-400">
+                Something went wrong. Please try again.
+              </p>
+            )}
           </motion.form>
         </div>
       </div>
@@ -113,8 +166,8 @@ export default function ContactSection() {
           reserved.
         </p>
         <p className="mt-2 italic">
-          "Code is like humor. When you have to explain it, it's bad." - Cory
-          House
+          &quot;Code is like humor. When you have to explain it, it&apos;s
+          bad.&quot; - Cory House
         </p>
       </div>
     </footer>
