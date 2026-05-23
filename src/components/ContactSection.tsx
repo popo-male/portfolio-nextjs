@@ -2,7 +2,7 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Send, MapPin } from "lucide-react";
+import { Mail, Send, MapPin, Loader2 } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { portfolioData } from "@/lib/data";
 
@@ -41,6 +41,9 @@ export default function ContactSection() {
     }
   }
 
+  // Shared classes for inputs to keep the code clean
+  const inputClasses = "w-full bg-surface border border-gray-800 rounded-lg px-4 py-3 text-textMain focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-gray-600";
+
   return (
     <footer
       id="contact"
@@ -77,14 +80,14 @@ export default function ContactSection() {
 
             <div className="flex gap-4 mt-8">
               <a
-                href="#"
-                className="p-3 bg-surface border border-gray-800 rounded-lg hover:border-primary hover:text-primary transition"
+                href="#" // Update with your actual GitHub link
+                className="p-3 bg-surface border border-gray-800 rounded-lg hover:border-primary hover:text-primary transition shadow-sm hover:shadow-[0_0_15px_rgba(139,92,246,0.3)]"
               >
                 <FaGithub size={20} />
               </a>
               <a
-                href="#"
-                className="p-3 bg-surface border border-gray-800 rounded-lg hover:border-secondary hover:text-secondary transition"
+                href="#" // Update with your actual LinkedIn link
+                className="p-3 bg-surface border border-gray-800 rounded-lg hover:border-secondary hover:text-secondary transition shadow-sm hover:shadow-[0_0_15px_rgba(59,130,246,0.3)]"
               >
                 <FaLinkedin size={20} />
               </a>
@@ -116,44 +119,65 @@ export default function ContactSection() {
                 name="name"
                 required
                 placeholder="Your Name"
-                className="..."
+                className={inputClasses}
               />
               <input
                 type="email"
                 name="email"
                 required
                 placeholder="Your Email"
-                className="..."
+                className={inputClasses}
               />
             </div>
+            
             <input
               type="text"
               name="subject"
               required
               placeholder="Subject"
-              className="..."
+              className={inputClasses}
             />
+            
             <textarea
               name="message"
               required
               placeholder="Your Message"
               rows={5}
-              className="..."
+              className={`${inputClasses} resize-none`}
             ></textarea>
 
-            <button type="submit" className="...">
-              {status === "sending" ? "Sending..." : "Send Message"}{" "}
-              <Send size={18} />
+            <button 
+              type="submit" 
+              disabled={status === "sending" || status === "sent"}
+              className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(139,92,246,0.3)] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:bg-primary"
+            >
+              {status === "sending" ? (
+                <>Sending... <Loader2 size={18} className="animate-spin" /></>
+              ) : status === "sent" ? (
+                "Message Sent!"
+              ) : (
+                <>Send Message <Send size={18} /></>
+              )}
             </button>
+
+            {/* Status Messages */}
             {status === "sent" && (
-              <p className="text-sm text-primary">
-                Thanks, your message has been sent.
-              </p>
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-sm text-green-400 text-center font-medium mt-2"
+              >
+                Thanks! Your message has been sent successfully.
+              </motion.p>
             )}
             {status === "error" && (
-              <p className="text-sm text-red-400">
-                Something went wrong. Please try again.
-              </p>
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-sm text-red-400 text-center font-medium mt-2"
+              >
+                Something went wrong. Please try again or email me directly.
+              </motion.p>
             )}
           </motion.form>
         </div>
@@ -162,12 +186,10 @@ export default function ContactSection() {
       {/* Deep Footer */}
       <div className="border-t border-gray-800 py-8 text-center text-sm text-gray-500">
         <p>
-          © {new Date().getFullYear()} {portfolioData.intro.name}. All rights
-          reserved.
+          © {new Date().getFullYear()} {portfolioData.intro.name}. All rights reserved.
         </p>
         <p className="mt-2 italic">
-          &quot;Code is like humor. When you have to explain it, it&apos;s
-          bad.&quot; - Cory House
+          &quot;Code is like humor. When you have to explain it, it&apos;s bad.&quot; - Cory House
         </p>
       </div>
     </footer>
