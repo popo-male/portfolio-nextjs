@@ -59,35 +59,47 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="space-y-4"
-            onSubmit={(e) => e.preventDefault()} // Add your email API logic here
+            name="contact" // Required for Netlify
+            method="POST" // Required for Netlify
+            data-netlify="true" // Tells Netlify to parse this form
+            action="/?success=true" // Where to redirect after sending
           >
+            {/* This hidden input is strictly required by Netlify for React apps */}
+            <input type="hidden" name="form-name" value="contact" />
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* MUST add 'name' attributes to all inputs so Netlify knows what data is what */}
               <input
                 type="text"
+                name="name"
+                required
                 placeholder="Your Name"
-                className="w-full bg-surface border border-gray-800 rounded-lg px-4 py-3 text-textMain focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition"
+                className="..."
               />
               <input
                 type="email"
+                name="email"
+                required
                 placeholder="Your Email"
-                className="w-full bg-surface border border-gray-800 rounded-lg px-4 py-3 text-textMain focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition"
+                className="..."
               />
             </div>
             <input
               type="text"
+              name="subject"
+              required
               placeholder="Subject"
-              className="w-full bg-surface border border-gray-800 rounded-lg px-4 py-3 text-textMain focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition"
+              className="..."
             />
             <textarea
+              name="message"
+              required
               placeholder="Your Message"
               rows={5}
-              className="w-full bg-surface border border-gray-800 rounded-lg px-4 py-3 text-textMain focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition resize-none"
+              className="..."
             ></textarea>
 
-            <button
-              type="submit"
-              className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 rounded-lg transition flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(139,92,246,0.3)]"
-            >
+            <button type="submit" className="...">
               Send Message <Send size={18} />
             </button>
           </motion.form>
