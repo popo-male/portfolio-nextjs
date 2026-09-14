@@ -1,88 +1,112 @@
 "use client";
+
 import { motion } from "framer-motion";
 import { portfolioData } from "@/lib/data";
 import { Code2, BrainCircuit, Rocket, Database } from "lucide-react";
 
 export default function AboutSection() {
-  return (
-    <section id="about" className="py-24 w-full bg-surface/50 border-y border-gray-800">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-sm font-bold text-primary uppercase tracking-widest mb-2">About Me</h2>
-        <h3 className="text-3xl md:text-4xl font-bold mb-12">Crafting intelligent systems<br/>with robust engineering</h3>
+  const cards = [
+    {
+      icon: <Code2 className="text-primary" size={28} />,
+      title: "Clean Backend Code",
+      description:
+        "Writing maintainable, modular, and well-documented Python/FastAPI services designed for maintainability and team collaboration.",
+      borderColor: "hover:border-primary/50",
+    },
+    {
+      icon: <Database className="text-secondary" size={28} />,
+      title: "Data Pipelines & ETL",
+      description:
+        "Building robust data pipelines, Airflow automated schedules, and landing zone file validation with Pydantic and Great Expectations.",
+      borderColor: "hover:border-secondary/50",
+    },
+    {
+      icon: <BrainCircuit className="text-emerald-400" size={28} />,
+      title: "Applied AI & ML",
+      description:
+        "Integrating machine learning models with MLflow, zero-shot classifiers, XGBoost, and agentic Gemini function-calling with guardrails.",
+      borderColor: "hover:border-emerald-500/50",
+    },
+    {
+      icon: <Rocket className="text-purple-400" size={28} />,
+      title: "Scalable Infrastructure",
+      description:
+        "Deploying, monitoring, and operating applications on Linux/Docker with PySpark data processing and reliable system uptime.",
+      borderColor: "hover:border-purple-500/50",
+    },
+  ];
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left Side: Expanded Text Description */}
-          <motion.div 
+  return (
+    <section
+      id="about"
+      className="py-24 w-full bg-[#111827]/40 border-y border-gray-800/80 scroll-mt-24"
+    >
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="mb-12">
+          <span className="text-xs font-mono font-bold text-primary tracking-widest uppercase mb-2 block">
+            ABOUT ME
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Background & Philosophy
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: Descriptive Bio */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-gray-400 space-y-6 leading-relaxed text-lg"
+            transition={{ duration: 0.4 }}
+            className="lg:col-span-6 text-textMuted space-y-6 leading-relaxed text-base sm:text-lg"
           >
             <p>
-              I am an <strong className="text-textMain">Associate Software Engineer</strong> with a strong focus on backend development, ETL systems, and machine learning solutions. 
-              My technical foundation revolves around combining robust software engineering with data science workflows.
+              I am an{" "}
+              <strong className="text-textMain font-semibold">
+                Associate Software Engineer
+              </strong>{" "}
+              specializing in backend development, ETL architectures, and machine
+              learning pipelines. My core focus lies at the intersection of
+              production software engineering and data science workflows. My core 
+              toolkit includes Python, Java, GO, Node.js and modern web frameworks 
+              like NestJS nad Next.js.
             </p>
             <p>
-              Currently, my work involves building complex data processing pipelines, developing scalable APIs, and engineering automation systems using technologies like <strong className="text-textMain">Python, PostgreSQL, Docker, and PySpark</strong>. 
+              For me, development is about more than just writing code. It's 
+              about designing intelligent, scalable systems that solve 
+              real-world problems. I enjoy the entire lifecycle of a product. 
+              I am constantly exploring modern frameworks and cloud infrastructure 
+              to build applications. 
             </p>
             <p>
-              My passion lies in developing scalable architectures and continuously pushing my technical boundaries. {portfolioData.about.difference}
+              Outside of writing code, I'm a big fan of strategy and simulation 
+              games, exploring new tech hardware and constantly hunting for the 
+              perfect cup of coffee or fruit tea.
             </p>
           </motion.div>
 
-          {/* Right Side: 4-Grid Strengths/Interests */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {/* Original Card 1 */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="bg-background p-6 rounded-xl border border-gray-800 shadow-lg hover:border-primary/50 transition-colors"
-            >
-              <Code2 className="text-primary mb-4" size={32} />
-              <h4 className="text-lg font-bold text-textMain mb-2">Clean Code</h4>
-              <p className="text-sm text-gray-500">I write maintainable, efficient, and well-documented code for seamless collaboration.</p>
-            </motion.div>
-
-            {/* Original Card 2 */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-background p-6 rounded-xl border border-gray-800 shadow-lg hover:border-secondary/50 transition-colors"
-            >
-              <BrainCircuit className="text-secondary mb-4" size={32} />
-              <h4 className="text-lg font-bold text-textMain mb-2">Problem Solver</h4>
-              <p className="text-sm text-gray-500">I thrive on turning complex business requirements into simple, elegant technical solutions.</p>
-            </motion.div>
-
-            {/* New Card 3 */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="bg-background p-6 rounded-xl border border-gray-800 shadow-lg hover:border-emerald-500/50 transition-colors"
-            >
-              <Database className="text-emerald-500 mb-4" size={32} />
-              <h4 className="text-lg font-bold text-textMain mb-2">Data-Driven</h4>
-              <p className="text-sm text-gray-500">Specialized in ETL pipelines, data validation, and integrating machine learning models into production.</p>
-            </motion.div>
-
-            {/* New Card 4 */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="bg-background p-6 rounded-xl border border-gray-800 shadow-lg hover:border-blue-500/50 transition-colors"
-            >
-              <Rocket className="text-blue-500 mb-4" size={32} />
-              <h4 className="text-lg font-bold text-textMain mb-2">Scalable Systems</h4>
-              <p className="text-sm text-gray-500">Experienced in deploying, monitoring, and maintaining robust backend applications and APIs.</p>
-            </motion.div>
+          {/* Right Column: 4-Bento Grid Cards */}
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {cards.map((card, index) => (
+              <motion.div
+                key={card.title}
+                initial={{ opacity: 0, scale: 0.96, y: 15 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: index * 0.08 }}
+                className={`bg-[#111827] p-6 rounded-2xl border border-gray-800/90 shadow-lg shadow-black/20 ${card.borderColor} transition-all duration-300 flex flex-col`}
+              >
+                <div className="p-3 bg-surface rounded-xl w-fit border border-gray-800 mb-4">
+                  {card.icon}
+                </div>
+                <h3 className="text-base font-bold text-textMain mb-2">
+                  {card.title}
+                </h3>
+                <p className="text-sm text-textMuted leading-relaxed">
+                  {card.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

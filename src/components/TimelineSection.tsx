@@ -1,121 +1,234 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { portfolioData } from "@/lib/data";
-import { Briefcase, GraduationCap } from "lucide-react";
+import {
+  portfolioData,
+  ExperienceItem,
+  EducationItem,
+  WorkHighlight,
+} from "@/lib/data";
+import {
+  Briefcase,
+  GraduationCap,
+  Building2,
+  Calendar,
+  Award,
+  Layers,
+} from "lucide-react";
 
 export default function TimelineSection() {
   return (
-    <section id="experience" className="py-24 w-full bg-background">
-      <div className="max-w-4xl mx-auto px-6">
-        {/* Experience Section */}
-        <div className="mb-20">
-          <div className="flex items-center gap-4 mb-12">
-            <h2 className="text-3xl font-bold text-textMain">
+    <section
+      id="experience"
+      className="py-24 w-full bg-[#111827]/40 border-t border-gray-800/80 scroll-mt-24"
+    >
+      <div className="max-w-5xl mx-auto px-6">
+        {/* Experience Header */}
+        <div className="mb-14">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Work Experience
             </h2>
-            <div className="h-1 flex-grow bg-gray-800 rounded-full">
-              <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary rounded-full" />
-            </div>
-          </div>
-
-          <div className="relative border-l border-gray-800 ml-4 md:ml-6 space-y-12">
-            {portfolioData.experience.map((exp: any, index: number) => {
-              // Check if currently working to apply special styling
-              const isCurrent = exp.timeline.toLowerCase().includes("currently working");
-
-              return (
-                <motion.div
-                  key={exp.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                  className="relative pl-8 md:pl-12"
-                >
-                  {/* Timeline Dot - Adds pulse and green color if current job */}
-                  <div className={`absolute -left-[17px] top-1 h-8 w-8 bg-surface border ${isCurrent ? 'border-green-500 shadow-[0_0_15px_rgba(34,197,94,0.4)]' : 'border-primary shadow-[0_0_10px_rgba(139,92,246,0.3)]'} rounded-full flex items-center justify-center z-10`}>
-                    {isCurrent && (
-                      <span className="absolute w-full h-full rounded-full border border-green-500 animate-ping opacity-50"></span>
-                    )}
-                    <Briefcase size={14} className={isCurrent ? 'text-green-500' : 'text-primary'} />
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-2">
-                    <h3 className="text-xl font-bold text-textMain">
-                      {exp.role}
-                    </h3>
-                    <span className={`text-sm font-medium mt-1 md:mt-0 px-3 py-1 rounded-full w-fit ${isCurrent ? 'text-green-400 bg-green-500/10 border border-green-500/20' : 'text-secondary bg-secondary/10 border border-secondary/20'}`}>
-                      {exp.timeline}
-                    </span>
-                  </div>
-                  <h4 className="text-md text-primary mb-4 font-medium">
-                    {exp.company}
-                  </h4>
-
-                  <ul className="list-disc list-inside text-textMuted space-y-2 text-sm leading-relaxed">
-                    {exp.responsibilities.map((task: any, i: number) => (
-                      <li key={i} className="pl-2 relative">
-                        <span className="absolute left-0 top-[0.6em] w-1.5 h-1.5 rounded-full bg-gray-600"></span>
-                        <span className="ml-4 block">{task}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              );
-            })}
           </div>
         </div>
 
-        {/* Education Section */}
-        <div id="education">
-          <div className="flex items-center gap-4 mb-12">
-            <h2 className="text-3xl font-bold text-textMain">
-              Academic Background
-            </h2>
-            <div className="h-1 flex-grow bg-gray-800 rounded-full">
-              <div className="h-1 w-20 bg-gradient-to-r from-secondary to-primary rounded-full" />
+        {/* Experience Timeline */}
+        <div className="relative border-l-2 border-gray-800/90 ml-3 sm:ml-6 space-y-14 mb-24">
+          {portfolioData.experience.map((exp: ExperienceItem, index: number) => {
+            const isCurrent = exp.timeline.toLowerCase().includes("present");
+
+            return (
+              <motion.div
+                key={exp.id}
+                initial={{ opacity: 0, x: -15 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="relative pl-6 sm:pl-10"
+              >
+                {/* Timeline Node Dot */}
+                <div
+                  className={`absolute -left-[18px] top-1 h-8 w-8 bg-[#0b0f19] border-2 ${
+                    isCurrent
+                      ? "border-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.45)]"
+                      : "border-primary shadow-[0_0_12px_rgba(139,92,246,0.3)]"
+                  } rounded-full flex items-center justify-center z-10`}
+                >
+                  {isCurrent && (
+                    <span className="absolute w-full h-full rounded-full border border-emerald-400 animate-ping opacity-40" />
+                  )}
+                  <Briefcase
+                    size={13}
+                    className={isCurrent ? "text-emerald-400" : "text-primary"}
+                  />
+                </div>
+
+                {/* Main Card Container */}
+                <div className="bg-[#111827] rounded-3xl border border-gray-800/90 shadow-2xl shadow-black/25 overflow-hidden transition-all duration-300 hover:border-gray-700">
+                  {/* Card Header: Role & Period */}
+                  <div className="p-6 sm:p-8 bg-gradient-to-r from-surface/80 to-[#111827] border-b border-gray-800/80">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2.5">
+                      <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                        {exp.role}
+                      </h3>
+
+                      <span
+                        className={`text-xs font-mono font-semibold px-3.5 py-1.5 rounded-full w-fit flex items-center gap-1.5 shrink-0 ${
+                          isCurrent
+                            ? "text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 shadow-sm"
+                            : "text-secondary bg-secondary/10 border border-secondary/25"
+                        }`}
+                      >
+                        <Calendar size={13} />
+                        {exp.timeline}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-primary font-semibold text-sm sm:text-base mb-3">
+                      <Building2 size={16} />
+                      <span>{exp.company}</span>
+                      <span className="text-gray-600">&bull;</span>
+                      <span className="text-textMuted font-normal text-xs sm:text-sm">
+                        {exp.location}
+                      </span>
+                    </div>
+
+                    {/* Executive Summary */}
+                    <p className="text-sm text-gray-300 leading-relaxed font-medium">
+                      {exp.summary}
+                    </p>
+                  </div>
+
+                  {/* Readable Structured Deliverables (Replaces walls of plain bullets) */}
+                  <div className="p-6 sm:p-8 space-y-4">
+                    <h4 className="text-xs font-mono uppercase tracking-wider text-textMuted font-bold flex items-center gap-1.5 mb-2">
+                      <Layers size={13} className="text-secondary" />
+                      <span>Key Responsibilities &amp; Impact Areas</span>
+                    </h4>
+
+                    <div className="grid grid-cols-1 gap-3.5">
+                      {exp.highlights.map((highlight: WorkHighlight, hIndex: number) => (
+                        <div
+                          key={hIndex}
+                          className="bg-[#0b0f19] p-4 sm:p-5 rounded-2xl border border-gray-800/80 hover:border-gray-700 transition-colors flex flex-col gap-2"
+                        >
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                              <span className="text-xs font-mono font-semibold text-secondary uppercase tracking-wider">
+                                {highlight.domain}
+                              </span>
+                              <span className="text-gray-700 hidden sm:inline">&mdash;</span>
+                              <h5 className="text-sm sm:text-base font-bold text-white">
+                                {highlight.title}
+                              </h5>
+                            </div>
+
+                            {/* Key Tech for this item */}
+                            <div className="flex flex-wrap gap-1">
+                              {highlight.keyTech.map((tech) => (
+                                <span
+                                  key={tech}
+                                  className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-surface border border-gray-800 text-textMuted"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <p className="text-xs sm:text-sm text-gray-300 leading-relaxed pl-3.5 border-l border-gray-800">
+                            {highlight.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Card Footer: Overall Technologies Used */}
+                  <div className="px-6 sm:px-8 py-4 bg-[#0b0f19]/80 border-t border-gray-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <span className="text-xs font-mono text-textMuted font-semibold">
+                      Tech Stack Utilized:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {exp.technologies.map((t) => (
+                        <span
+                          key={t}
+                          className="text-[11px] font-mono font-semibold px-2.5 py-1 rounded-lg bg-surface border border-gray-800 text-gray-300"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Academic Background Section */}
+        <div id="education" className="scroll-mt-24">
+          <div className="mb-10">
+            <div className="flex items-center gap-4">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Academic Background
+              </h2>
+              <div className="h-px flex-grow bg-gray-800 hidden sm:block">
+                <div className="h-0.5 w-20 bg-gradient-to-r from-secondary to-primary rounded-full" />
+              </div>
             </div>
           </div>
 
-          <div className="relative border-l border-gray-800 ml-4 md:ml-6 space-y-12">
-            {portfolioData.education.map((edu: any, index: number) => (
+          <div className="relative border-l-2 border-gray-800/90 ml-3 sm:ml-6 space-y-12">
+            {portfolioData.education.map((edu: EducationItem, index: number) => (
               <motion.div
                 key={edu.id}
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -15 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="relative pl-8 md:pl-12"
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="relative pl-6 sm:pl-10"
               >
-                {/* Timeline Dot */}
-                <div className="absolute -left-[17px] top-1 h-8 w-8 bg-surface border border-secondary rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(59,130,246,0.3)]">
+                {/* Academic Node Dot */}
+                <div className="absolute -left-[18px] top-1.5 h-8 w-8 bg-[#0b0f19] border-2 border-secondary rounded-full flex items-center justify-center shadow-[0_0_12px_rgba(56,189,248,0.35)] z-10">
                   <GraduationCap size={14} className="text-secondary" />
                 </div>
 
-                {/* Content */}
-                <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-2">
-                  <h3 className="text-xl font-bold text-textMain">
-                    {edu.degree}
-                  </h3>
-                  <span className="text-sm font-medium text-primary mt-1 md:mt-0 bg-primary/10 px-3 py-1 rounded-full border border-primary/20 w-fit">
-                    {edu.timeline}
-                  </span>
-                </div>
-                <h4 className="text-md text-secondary mb-4 font-medium">
-                  {edu.institution}
-                </h4>
+                {/* Academic Card */}
+                <div className="bg-[#111827] p-6 sm:p-8 rounded-3xl border border-gray-800/90 shadow-xl shadow-black/20">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white">
+                      {edu.degree}
+                    </h3>
+                    <span className="text-xs font-mono font-semibold px-3 py-1 rounded-full w-fit text-primary bg-primary/10 border border-primary/25">
+                      {edu.timeline}
+                    </span>
+                  </div>
 
-                <div className="bg-surface p-5 rounded-lg border border-gray-800 space-y-3">
-                  <p className="text-sm text-gray-400">
-                    <strong className="text-textMain">CGPA:</strong> {edu.cgpa}
-                  </p>
-                  <p className="text-sm text-gray-400 leading-relaxed">
-                    <strong className="text-textMain">
-                      Relevant Coursework:
-                    </strong>{" "}
-                    {edu.coursework}
-                  </p>
+                  <h4 className="text-sm sm:text-base font-semibold text-secondary mb-5">
+                    {edu.institution}
+                  </h4>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-[#0b0f19] border border-gray-800 text-xs sm:text-sm">
+                    <div className="sm:col-span-1 border-b sm:border-b-0 sm:border-r border-gray-800 pb-3 sm:pb-0 sm:pr-4">
+                      <span className="text-textMuted block text-xs mb-1 font-mono uppercase tracking-wider">
+                        Cumulative GPA
+                      </span>
+                      <span className="font-bold text-emerald-400 text-lg flex items-center gap-1.5">
+                        <Award size={18} /> {edu.cgpa}
+                      </span>
+                    </div>
+
+                    <div className="sm:col-span-3 sm:pl-2">
+                      <span className="text-textMuted block text-xs mb-1 font-mono uppercase tracking-wider">
+                        Core Specializations
+                      </span>
+                      <p className="text-gray-300 leading-relaxed text-xs sm:text-sm">
+                        {edu.coursework}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))}
