@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { portfolioData } from "@/lib/data";
@@ -19,17 +19,61 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const isManualScrollRef = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleNavClick = (sectionId: string) => {
+    setActiveSection(sectionId);
+    isManualScrollRef.current = true;
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    scrollTimeoutRef.current = setTimeout(() => {
+      isManualScrollRef.current = false;
+    }, 1000);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Track active section via IntersectionObserver & scroll position
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
+      if (isManualScrollRef.current) {
+        return;
+      }
+
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollPosition = window.scrollY + 200;
+
+      // 1. Bottom-of-page check: when near or at the bottom, Contact is always active
+      if (window.scrollY + windowHeight >= documentHeight - 80) {
+        setActiveSection("contact");
+        return;
+      }
+
+      // 2. Viewport visibility check for contact section
+      const contactEl = document.querySelector("#contact") as HTMLElement | null;
+      if (contactEl) {
+        const contactRect = contactEl.getBoundingClientRect();
+        if (contactRect.top <= windowHeight * 0.6) {
+          setActiveSection("contact");
+          return;
+        }
+      }
+
+      // 3. Check preceding sections in reverse order
       const sectionElements = navItems.map((item) =>
         document.querySelector(item.href)
       );
-
-      const scrollPosition = window.scrollY + 180;
 
       for (let i = sectionElements.length - 1; i >= 0; i--) {
         const el = sectionElements[i] as HTMLElement | null;
@@ -95,11 +139,13 @@ export default function Navbar() {
         {/* Desktop Navigation - Centered Floating Pill */}
         <div className="hidden md:flex items-center gap-1 bg-[#111827]/90 border border-gray-700/60 px-2 py-1.5 rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.3)] backdrop-blur-md">
           {navItems.map((item) => {
-            const isActive = activeSection === item.href.substring(1);
+            const sectionId = item.href.substring(1);
+            const isActive = activeSection === sectionId;
             return (
               <a
                 key={item.name}
                 href={item.href}
+                onClick={() => handleNavClick(sectionId)}
                 className={`relative px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary ${
                   isActive
                     ? "text-white bg-primary shadow-[0_0_12px_rgba(139,92,246,0.4)]"
@@ -116,6 +162,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center">
           <a
             href="#contact"
+            onClick={() => handleNavClick("contact")}
             className="text-xs font-medium px-4 py-2 rounded-lg bg-surface border border-gray-800 text-textMuted hover:text-white hover:border-primary/50 transition-all flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-primary"
           >
             <span>Let&apos;s Talk</span>
@@ -149,12 +196,16 @@ export default function Navbar() {
           >
             <div className="flex flex-col gap-1.5">
               {navItems.map((item) => {
-                const isActive = activeSection === item.href.substring(1);
+                const sectionId = item.href.substring(1);
+                const isActive = activeSection === sectionId;
                 return (
                   <a
                     key={item.name}
                     href={item.href}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      handleNavClick(sectionId);
+                      setIsOpen(false);
+                    }}
                     className={`min-h-[48px] px-4 py-3 rounded-xl text-base font-semibold flex items-center justify-between transition-colors ${
                       isActive
                         ? "bg-primary/20 text-white border border-primary/40"
@@ -173,7 +224,10 @@ export default function Navbar() {
             <div className="pt-4 mt-2 border-t border-gray-800/80 flex flex-col gap-3">
               <a
                 href="#contact"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  handleNavClick("contact");
+                  setIsOpen(false);
+                }}
                 className="w-full min-h-[48px] px-4 py-3 bg-primary text-white font-semibold rounded-xl text-center flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
               >
                 <span>Get in Touch</span>

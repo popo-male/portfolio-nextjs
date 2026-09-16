@@ -260,7 +260,7 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={status === "sending" || status === "sent"}
-                className="w-full min-h-[48px] bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-primary/25 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-secondary"
+                className="group w-full min-h-[50px] bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:via-purple-500 hover:to-indigo-500 text-white font-bold py-3.5 px-6 rounded-xl border border-violet-400/40 hover:border-violet-300 transition-all duration-300 flex items-center justify-center gap-2.5 shadow-[0_4px_20px_rgba(139,92,246,0.35)] hover:shadow-[0_4px_30px_rgba(139,92,246,0.6)] hover:scale-[1.01] active:scale-[0.98] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none focus-visible:ring-2 focus-visible:ring-secondary"
               >
                 {status === "sending" ? (
                   <>
@@ -272,7 +272,10 @@ export default function ContactSection() {
                 ) : (
                   <>
                     <span>Send Message</span>
-                    <Send size={16} />
+                    <Send
+                      size={17}
+                      className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                    />
                   </>
                 )}
               </button>

@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --color-background: #0b0f19;
+  --color-surface: #111827;
+  --color-surface-elevated: #1e293b;
+  --color-primary: #8b5cf6;
+  --color-primary-hover: #7c3aed;
+  --color-secondary: #38bdf8;
+  --color-accent: #22c55e;
+  --color-textMain: #f8fafc;
+  --color-textMuted: #94a3b8;
+  --color-border: #1f293d;
+}
+
 :root {
   /* Dark theme and refined engineering accent colors */
   --color-background: #0b0f19;
@@ -37,6 +50,16 @@
     outline-offset: 2px;
   }
 }
+
+@keyframes ticker-marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 
 /* WCAG 2.2 prefers-reduced-motion support */
 @media (prefers-reduced-motion: reduce) {

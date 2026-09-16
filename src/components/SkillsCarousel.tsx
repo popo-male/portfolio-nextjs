@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import {
   Server,
   Workflow,
@@ -163,17 +163,13 @@ export default function SkillsCarousel() {
             onFocus={() => setIsPaused(true)}
             onBlur={() => setIsPaused(false)}
           >
-            <motion.div
-              className="flex space-x-3 whitespace-nowrap py-2"
-              animate={
-                shouldReduceMotion || isPaused
-                  ? { x: 0 }
-                  : { x: ["0%", "-50%"] }
-              }
-              transition={{
-                ease: "linear",
-                duration: 32,
-                repeat: Infinity,
+            <div
+              className="flex space-x-3 whitespace-nowrap py-2 w-max will-change-transform"
+              style={{
+                animation: shouldReduceMotion
+                  ? "none"
+                  : "ticker-marquee 35s linear infinite",
+                animationPlayState: isPaused ? "paused" : "running",
               }}
             >
               {[...tickerSkills, ...tickerSkills].map((skill, index) => (
@@ -185,7 +181,7 @@ export default function SkillsCarousel() {
                   <span>{skill.name}</span>
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
 
           <div className="flex justify-end mt-2">
