@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
 import {
   Server,
   Workflow,
@@ -131,8 +131,43 @@ const clusters: DomainCluster[] = [
 ];
 
 export default function SkillsCarousel() {
-  const shouldReduceMotion = useReducedMotion();
   const [isPaused, setIsPaused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const halfWidthRef = useRef(0);
+  const x = useMotionValue(0);
+
+  // Measure half width on mount and on window resize
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        halfWidthRef.current = containerRef.current.scrollWidth / 2;
+      }
+    };
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+
+  // Continuous animation loop using Framer Motion's hardware-accelerated RAF ticker
+  useAnimationFrame((_, delta) => {
+    if (isPaused) return;
+
+    // Cap delta to 64ms so returning from background tab does not cause a huge jump
+    const safeDelta = Math.min(delta, 64);
+    const speed = 45; // 45px per second (smooth, comfortable reading speed)
+    const moveBy = (speed * safeDelta) / 1000;
+
+    let current = x.get() - moveBy;
+    const halfWidth =
+      halfWidthRef.current ||
+      (containerRef.current ? containerRef.current.scrollWidth / 2 : 0);
+
+    if (halfWidth > 0 && current <= -halfWidth) {
+      current += halfWidth;
+    }
+
+    x.set(current);
+  });
 
   // Flat list for top ticker
   const tickerSkills = clusters.flatMap((c) => c.skills);
@@ -163,14 +198,10 @@ export default function SkillsCarousel() {
             onFocus={() => setIsPaused(true)}
             onBlur={() => setIsPaused(false)}
           >
-            <div
+            <motion.div
+              ref={containerRef}
+              style={{ x }}
               className="flex space-x-3 whitespace-nowrap py-2 w-max will-change-transform"
-              style={{
-                animation: shouldReduceMotion
-                  ? "none"
-                  : "ticker-marquee 35s linear infinite",
-                animationPlayState: isPaused ? "paused" : "running",
-              }}
             >
               {[...tickerSkills, ...tickerSkills].map((skill, index) => (
                 <div
@@ -181,15 +212,15 @@ export default function SkillsCarousel() {
                   <span>{skill.name}</span>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           <div className="flex justify-end mt-2">
             <button
               type="button"
-              onClick={() => setIsPaused(!isPaused)}
+              onClick={() => setIsPaused((prev) => !prev)}
               aria-label={isPaused ? "Resume skill ticker" : "Pause skill ticker"}
-              className="text-xs text-textMuted hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface border border-gray-800 transition-colors focus-visible:ring-2 focus-visible:ring-secondary"
+              className="text-xs text-textMuted hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface border border-gray-800 transition-colors focus-visible:ring-2 focus-visible:ring-secondary cursor-pointer"
             >
               {isPaused ? <Play size={12} /> : <Pause size={12} />}
               <span>{isPaused ? "Resume Ticker" : "Pause Ticker"}</span>

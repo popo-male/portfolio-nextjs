@@ -51,16 +51,6 @@
   }
 }
 
-@keyframes ticker-marquee {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-
 /* WCAG 2.2 prefers-reduced-motion support */
 @media (prefers-reduced-motion: reduce) {
   html {
