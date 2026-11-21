@@ -42,6 +42,7 @@ Open http://localhost:3000.
 | `npm run build` | Production build (also type-checks) |
 | `npm run start` | Serve the production build locally |
 | `npm run lint` | ESLint |
+| `npm run resume:build` | Re-render the CV images from `private/Resume.pdf` |
 
 ## Project layout
 
@@ -49,6 +50,8 @@ Open http://localhost:3000.
 public/                       Static assets served from /
   __forms.html                Netlify Forms definition (see "Contact form")
   *.png / *.jpg               Project screenshots and the hero mascot
+scripts/render-resume.mjs     Renders private/Resume.pdf into page images
+private/                      Git-ignored source documents (Resume.pdf)
 src/
   app/
     layout.tsx                Root layout, fonts, SEO metadata
@@ -60,6 +63,7 @@ src/
     sections/                 One component per page section
     ui/                       Shared building blocks (SectionHeader, BackToTop)
   data/portfolio.ts           All site content
+  data/resume.json            Generated list of CV page images
   types/portfolio.ts          Types for the content
 ```
 
@@ -100,6 +104,20 @@ The form uses **Netlify Forms**, so it only delivers when the site runs on Netli
 - The field names in both files (`name`, `email`, `subject`, `message`, `bot-field`) **must stay identical**, otherwise Netlify drops the unknown fields.
 - `bot-field` is a honeypot: real visitors never see it, and submissions that fill it are discarded as spam.
 - **Email delivery is configured in the Netlify dashboard, not in code:** Project configuration → Notifications → Form submission notifications → Add notification → Email notification, then pick the `contact` form and the destination address. Without it, submissions are only stored under Forms in the dashboard.
+
+### CV viewer
+
+The hero's **View CV** button opens the CV in a view-only dialog (`components/ui/ResumeViewer.tsx`). The PDF is never published: the site ships page images only, so there is no file to download and no text to copy or edit.
+
+- Keep the source at `private/Resume.pdf`. The `private/` folder is git-ignored; **do not put the PDF in `public/` or commit it**, because this repository is public.
+- After changing the CV, regenerate the images and commit the result:
+
+  ```bash
+  npm run resume:build
+  ```
+
+  This writes `public/resume/page-N.webp` and `src/data/resume.json` (the page list the dialog reads).
+- This deters casual copying; it cannot stop screenshots. Anyone who wants the actual file is pointed to **Request CV**, which opens an email to me.
 
 ### Link previews
 

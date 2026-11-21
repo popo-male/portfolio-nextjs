@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { ArrowRight, Mail, MapPin } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { portfolioData } from "@/data/portfolio";
+import ResumeViewer from "@/components/ui/ResumeViewer";
 
 const { intro, experience } = portfolioData;
 
@@ -83,13 +84,7 @@ export default function HeroSection() {
               <ArrowRight size={18} />
             </a>
 
-            <a
-              href={`mailto:${intro.email}?subject=Resume%20Request%20-%20${encodeURIComponent(intro.name)}`}
-              className="min-h-[44px] px-7 py-3 border border-gray-700/80 bg-surface/70 text-textMain rounded-xl hover:border-gray-500 hover:bg-surface transition-all flex items-center justify-center gap-2 active:scale-95 duration-150 focus-visible:ring-2 focus-visible:ring-primary"
-            >
-              <Mail size={18} className="text-secondary" />
-              <span>Request CV</span>
-            </a>
+            <ResumeViewer className="min-h-[44px] px-7 py-3 border border-gray-700/80 bg-surface/70 text-textMain rounded-xl hover:border-gray-500 hover:bg-surface transition-all flex items-center justify-center gap-2 active:scale-95 duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary" />
           </div>
 
           {/* Quick facts */}
