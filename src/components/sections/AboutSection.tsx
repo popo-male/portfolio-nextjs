@@ -17,7 +17,7 @@ export default function AboutSection() {
     {
       title: "Data Pipelines & ETL",
       description:
-        "I design automated workflows that extract, transform and load complex data. Ensure clean, structured and reliable data is always available for downstream applications.",
+        "I design automated workflows that extract, transform and load complex data, ensuring clean, structured and reliable data is always available for downstream applications.",
       icon: <Database size={20} className="text-sky-400" />,
       accentBg: "bg-sky-500/10 border-sky-500/25",
       borderHover: "hover:border-sky-500/40",
@@ -26,7 +26,7 @@ export default function AboutSection() {
     {
       title: "Applied AI & MLOps",
       description:
-        "I bridge the gap between data science and production by deploying AI model into real-world applications.",
+        "I bridge the gap between data science and production by deploying AI models into real-world applications.",
       icon: <BrainCircuit size={20} className="text-emerald-400" />,
       accentBg: "bg-emerald-500/10 border-emerald-500/25",
       borderHover: "hover:border-emerald-500/40",
@@ -46,7 +46,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="py-24 w-full bg-[#111827]/40 border-y border-gray-800/80 scroll-mt-24"
+      className="py-24 w-full bg-surface/40 border-y border-gray-800/80 scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-12 text-left">

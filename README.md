@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
 
-## Getting Started
+Personal portfolio site built with Next.js (App Router), Tailwind CSS v4 and Framer Motion. Deployed on Netlify.
 
-First, run the development server:
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+public/                 Static assets (+ __forms.html, the Netlify Forms definition)
+src/
+  app/                  Root layout, page, global styles
+  components/
+    layout/             Navbar, Footer
+    sections/           One component per page section (Hero, About, Skills, ...)
+    ui/                 Small shared widgets (BackToTop)
+  data/portfolio.ts     All site content: intro, experience, projects, certificates
+  types/portfolio.ts    Types for the content above
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To update content, edit `src/data/portfolio.ts`.
 
-## Learn More
+## Contact form
 
-To learn more about Next.js, take a look at the following resources:
+The form posts to Netlify Forms (`public/__forms.html` registers the form at deploy time), so it only delivers when the site is running on Netlify. The field names in `__forms.html` and `ContactSection.tsx` must stay in sync.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Email delivery is configured in the Netlify dashboard, not in code: **Project configuration → Notifications → Form submission notifications → Add notification → Email notification**, then choose the `contact` form and the address to deliver to.

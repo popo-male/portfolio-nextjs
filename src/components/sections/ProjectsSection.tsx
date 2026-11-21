@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { portfolioData } from "@/data/portfolio";
 import {
-  portfolioData,
-  ProjectItem,
-  ProjectCategory,
-} from "@/lib/data";
+  PROJECT_CATEGORIES,
+  type ProjectItem,
+  type ProjectCategory,
+} from "@/types/portfolio";
 import {
   ExternalLink,
   Calendar,
@@ -18,16 +19,12 @@ import {
 import { FaGithub } from "react-icons/fa";
 import Image from "next/image";
 
-const categories: ProjectCategory[] = [
-  "All",
-  "AI & Machine Learning",
-  "Data Engineering",
-  "Full Stack & Web",
-  "Systems",
-];
+type ProjectFilter = "All" | ProjectCategory;
 
-export default function ProjectSection() {
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory>("All");
+const filters: ProjectFilter[] = ["All", ...PROJECT_CATEGORIES];
+
+export default function ProjectsSection() {
+  const [activeCategory, setActiveCategory] = useState<ProjectFilter>("All");
 
   const filteredProjects =
     activeCategory === "All"
@@ -37,7 +34,7 @@ export default function ProjectSection() {
   return (
     <section
       id="projects"
-      className="py-24 w-full bg-[#0b0f19] border-t border-gray-800/80 scroll-mt-24"
+      className="py-24 w-full bg-background border-t border-gray-800/80 scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
@@ -49,17 +46,17 @@ export default function ProjectSection() {
 
           {/* Category Filter Tabs */}
           <div
-            role="tablist"
-            aria-label="Project Categories"
-            className="flex flex-wrap gap-2 bg-[#111827] p-1.5 rounded-2xl border border-gray-800 w-fit"
+            role="group"
+            aria-label="Filter projects by category"
+            className="flex flex-wrap gap-2 bg-surface p-1.5 rounded-2xl border border-gray-800 w-fit"
           >
-            {categories.map((cat) => {
+            {filters.map((cat) => {
               const isActive = activeCategory === cat;
               return (
                 <button
                   key={cat}
-                  role="tab"
-                  aria-selected={isActive}
+                  type="button"
+                  aria-pressed={isActive}
                   onClick={() => setActiveCategory(cat)}
                   className={`min-h-[38px] px-4 py-1.5 rounded-xl text-xs font-semibold transition-all focus-visible:ring-2 focus-visible:ring-primary ${
                     isActive
@@ -85,7 +82,7 @@ export default function ProjectSection() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 15 }}
                 transition={{ duration: 0.3, delay: (index % 4) * 0.05 }}
-                className="group bg-[#111827] border border-gray-800/90 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 flex flex-col shadow-xl shadow-black/20"
+                className="group bg-surface border border-gray-800/90 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 flex flex-col shadow-xl shadow-black/20"
               >
                 {/* Image / Header Banner */}
                 <div className="h-52 bg-gray-950 relative overflow-hidden">
@@ -99,17 +96,17 @@ export default function ProjectSection() {
                     />
                   ) : (
                     /* Fallback High-Tech Card Banner */
-                    <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-[#111827] to-[#0b0f19] flex flex-col items-center justify-center p-6 text-center border-b border-gray-800">
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-surface to-background flex flex-col items-center justify-center p-6 text-center border-b border-gray-800">
                       <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-2">
                         <Activity size={24} />
                       </div>
                       <span className="text-xs font-mono uppercase tracking-wider text-textMuted font-semibold">
-                        Machine Learning Dataset &amp; Diagnostics
+                        {project.category}
                       </span>
                     </div>
                   )}
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-transparent to-transparent opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-90" />
 
                   {/* Metadata Badges on Image */}
                   <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">

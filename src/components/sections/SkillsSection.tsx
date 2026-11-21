@@ -130,7 +130,7 @@ const clusters: DomainCluster[] = [
   },
 ];
 
-export default function SkillsCarousel() {
+export default function SkillsSection() {
   const [isPaused, setIsPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const halfWidthRef = useRef(0);
@@ -175,7 +175,7 @@ export default function SkillsCarousel() {
   return (
     <section
       id="skills"
-      className="py-24 w-full overflow-hidden bg-[#0b0f19] scroll-mt-24"
+      className="py-24 w-full overflow-hidden bg-background scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
@@ -206,7 +206,7 @@ export default function SkillsCarousel() {
               {[...tickerSkills, ...tickerSkills].map((skill, index) => (
                 <div
                   key={`${skill.name}-${index}`}
-                  className="inline-flex items-center gap-2.5 bg-[#111827] px-4 py-2 rounded-xl border border-gray-800 text-sm font-medium text-textMain hover:border-gray-700 hover:text-white transition-colors cursor-default shrink-0"
+                  className="inline-flex items-center gap-2.5 bg-surface px-4 py-2 rounded-xl border border-gray-800 text-sm font-medium text-textMain hover:border-gray-700 hover:text-white transition-colors cursor-default shrink-0"
                 >
                   <span className="shrink-0">{skill.icon}</span>
                   <span>{skill.name}</span>
@@ -229,7 +229,7 @@ export default function SkillsCarousel() {
         </div>
 
         {/* 2. Clean Linear Row Matrix (No nested boxes, No empty space, Zero clutter) */}
-        <div className="bg-[#111827]/40 rounded-3xl border border-gray-800/80 p-6 sm:p-10 divide-y divide-gray-800/70 shadow-2xl shadow-black/20">
+        <div className="bg-surface/40 rounded-3xl border border-gray-800/80 p-6 sm:p-10 divide-y divide-gray-800/70 shadow-2xl shadow-black/20">
           {clusters.map((cluster, index) => (
             <div
               key={cluster.title}
@@ -239,7 +239,7 @@ export default function SkillsCarousel() {
             >
               {/* Domain Label & Count */}
               <div className="lg:w-64 shrink-0 flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-[#0b0f19] border border-gray-800/90 text-textMuted shrink-0">
+                <div className="p-2 rounded-xl bg-background border border-gray-800/90 text-textMuted shrink-0">
                   {cluster.domainIcon}
                 </div>
                 <div>
@@ -257,7 +257,7 @@ export default function SkillsCarousel() {
                 {cluster.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="min-h-[40px] px-3.5 py-2 rounded-xl bg-[#0b0f19] border border-gray-800/80 hover:border-gray-700 hover:bg-surface/80 text-xs sm:text-sm font-medium text-textMain hover:text-white transition-all duration-150 flex items-center gap-2.5 shadow-sm"
+                    className="min-h-[40px] px-3.5 py-2 rounded-xl bg-background border border-gray-800/80 hover:border-gray-700 hover:bg-surface/80 text-xs sm:text-sm font-medium text-textMain hover:text-white transition-all duration-150 flex items-center gap-2.5 shadow-sm"
                   >
                     <span className="shrink-0 opacity-90">{skill.icon}</span>
                     <span>{skill.name}</span>

@@ -14,12 +14,14 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { portfolioData } from "@/lib/data";
+import { portfolioData } from "@/data/portfolio";
+
+const FORM_ENDPOINT = "/__forms.html";
+
+type FormStatus = "idle" | "sending" | "sent" | "error";
 
 export default function ContactSection() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<FormStatus>("idle");
   const [copied, setCopied] = useState(false);
 
   const handleCopyEmail = async () => {
@@ -28,7 +30,7 @@ export default function ContactSection() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     } catch {
-      // Fallback
+      // Clipboard unavailable (e.g. insecure context); the mailto link still works
     }
   };
 
@@ -37,41 +39,42 @@ export default function ContactSection() {
     setStatus("sending");
 
     const form = event.currentTarget;
-    const formData = new FormData(form);
     const body = new URLSearchParams();
-
-    formData.forEach((value, key) => {
+    new FormData(form).forEach((value, key) => {
       body.append(key, value.toString());
     });
 
     try {
-      const response = await fetch("/__forms.html", {
+      // Netlify Forms: POST to the static form definition in public/__forms.html.
+      // Netlify stores the submission and emails it via the form notification
+      // configured in the Netlify dashboard.
+      const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: body.toString(),
       });
 
       if (!response.ok) {
-        throw new Error("Form submission endpoint responded with error");
+        throw new Error(`Form submission failed with status ${response.status}`);
       }
 
       form.reset();
       setStatus("sent");
     } catch {
-      // If deployed in environments without Netlify form handlers, show friendly fallback
+      // Network failure, or the site is running somewhere without Netlify Forms
       setStatus("error");
     }
   }
 
   const inputClasses =
-    "w-full bg-[#0b0f19] border border-gray-800 rounded-xl px-4 py-3 text-textMain text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-gray-600";
+    "w-full bg-background border border-gray-800 rounded-xl px-4 py-3 text-textMain text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-gray-600";
 
   return (
-    <footer
+    <section
       id="contact"
-      className="w-full bg-[#111827]/40 pt-24 border-t border-gray-800/80 scroll-mt-24"
+      className="w-full bg-surface/40 py-24 border-t border-gray-800/80 scroll-mt-24"
     >
-      <div className="max-w-6xl mx-auto px-6 mb-20">
+      <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           {/* Left Column: Direct Info & Socials */}
           <div className="lg:col-span-5 flex flex-col">
@@ -85,7 +88,7 @@ export default function ContactSection() {
             {/* Direct Contact Cards */}
             <div className="space-y-3.5 mb-8">
               {/* Email with 1-click copy */}
-              <div className="p-3.5 rounded-xl bg-[#111827] border border-gray-800 flex items-center justify-between gap-3">
+              <div className="p-3.5 rounded-xl bg-surface border border-gray-800 flex items-center justify-between gap-3">
                 <a
                   href={`mailto:${portfolioData.intro.email}`}
                   className="flex items-center text-sm font-medium text-textMain hover:text-primary transition-colors truncate"
@@ -116,13 +119,13 @@ export default function ContactSection() {
               </div>
 
               {/* Location */}
-              <div className="p-3.5 rounded-xl bg-[#111827] border border-gray-800 flex items-center text-sm text-textMuted">
+              <div className="p-3.5 rounded-xl bg-surface border border-gray-800 flex items-center text-sm text-textMuted">
                 <MapPin size={18} className="mr-3 text-secondary shrink-0" />
                 <span>{portfolioData.intro.location}</span>
               </div>
 
               {/* Phone */}
-              <div className="p-3.5 rounded-xl bg-[#111827] border border-gray-800 flex items-center text-sm text-textMuted">
+              <div className="p-3.5 rounded-xl bg-surface border border-gray-800 flex items-center text-sm text-textMuted">
                 <Phone size={18} className="mr-3 text-emerald-400 shrink-0" />
                 <span>{portfolioData.intro.phone}</span>
               </div>
@@ -135,7 +138,7 @@ export default function ContactSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit Koh Yu Bin's GitHub profile (opens in new tab)"
-                className="min-h-[44px] min-w-[44px] p-3 bg-[#111827] border border-gray-800 rounded-xl hover:border-primary hover:text-primary text-textMuted transition-all flex items-center justify-center focus-visible:ring-2 focus-visible:ring-primary"
+                className="min-h-[44px] min-w-[44px] p-3 bg-surface border border-gray-800 rounded-xl hover:border-primary hover:text-primary text-textMuted transition-all flex items-center justify-center focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <FaGithub size={20} />
               </a>
@@ -145,14 +148,14 @@ export default function ContactSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit Koh Yu Bin's LinkedIn profile (opens in new tab)"
-                className="min-h-[44px] min-w-[44px] p-3 bg-[#111827] border border-gray-800 rounded-xl hover:border-secondary hover:text-secondary text-textMuted transition-all flex items-center justify-center focus-visible:ring-2 focus-visible:ring-secondary"
+                className="min-h-[44px] min-w-[44px] p-3 bg-surface border border-gray-800 rounded-xl hover:border-secondary hover:text-secondary text-textMuted transition-all flex items-center justify-center focus-visible:ring-2 focus-visible:ring-secondary"
               >
                 <FaLinkedin size={20} />
               </a>
 
               <a
                 href={`mailto:${portfolioData.intro.email}?subject=Direct%20Inquiry%20from%20Portfolio`}
-                className="min-h-[44px] px-4 py-2 bg-[#111827] border border-gray-800 rounded-xl text-xs font-semibold text-textMuted hover:text-white hover:border-gray-700 transition-all flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-primary"
+                className="min-h-[44px] px-4 py-2 bg-surface border border-gray-800 rounded-xl text-xs font-semibold text-textMuted hover:text-white hover:border-gray-700 transition-all flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <span>Direct Mail</span>
                 <ArrowUpRight size={14} className="text-secondary" />
@@ -166,7 +169,7 @@ export default function ContactSection() {
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-[#111827] p-7 sm:p-9 rounded-2xl border border-gray-800/90 shadow-2xl shadow-black/20 space-y-5"
+              className="bg-surface p-7 sm:p-9 rounded-2xl border border-gray-800/90 shadow-2xl shadow-black/20 space-y-5"
               name="contact"
               method="POST"
               data-netlify="true"
@@ -174,9 +177,11 @@ export default function ContactSection() {
               onSubmit={handleSubmit}
             >
               <input type="hidden" name="form-name" value="contact" />
-              <p className="hidden">
+              {/* Honeypot: hidden from people, bots that fill it get discarded */}
+              <p className="hidden" aria-hidden="true">
                 <label>
-                  Don&apos;t fill this out: <input name="bot-field" />
+                  Don&apos;t fill this out:{" "}
+                  <input name="bot-field" tabIndex={-1} autoComplete="off" />
                 </label>
               </p>
 
@@ -195,6 +200,7 @@ export default function ContactSection() {
                     name="name"
                     required
                     autoComplete="name"
+                    maxLength={100}
                     placeholder="e.g. Alex Tan"
                     className={inputClasses}
                   />
@@ -233,6 +239,7 @@ export default function ContactSection() {
                   type="text"
                   name="subject"
                   required
+                  maxLength={150}
                   placeholder="e.g. Backend Engineer Opportunity"
                   className={inputClasses}
                 />
@@ -250,6 +257,7 @@ export default function ContactSection() {
                   id="contact-message"
                   name="message"
                   required
+                  maxLength={5000}
                   placeholder="Share a few details about your project or role..."
                   rows={4}
                   className={`${inputClasses} resize-none`}
@@ -259,7 +267,7 @@ export default function ContactSection() {
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={status === "sending" || status === "sent"}
+                disabled={status === "sending"}
                 className="group w-full min-h-[50px] bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:via-purple-500 hover:to-indigo-500 text-white font-bold py-3.5 px-6 rounded-xl border border-violet-400/40 hover:border-violet-300 transition-all duration-300 flex items-center justify-center gap-2.5 shadow-[0_4px_20px_rgba(139,92,246,0.35)] hover:shadow-[0_4px_30px_rgba(139,92,246,0.6)] hover:scale-[1.01] active:scale-[0.98] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none focus-visible:ring-2 focus-visible:ring-secondary"
               >
                 {status === "sending" ? (
@@ -267,8 +275,6 @@ export default function ContactSection() {
                     <span>Sending message...</span>
                     <Loader2 size={18} className="animate-spin" />
                   </>
-                ) : status === "sent" ? (
-                  <span>Message Sent Successfully!</span>
                 ) : (
                   <>
                     <span>Send Message</span>
@@ -288,8 +294,8 @@ export default function ContactSection() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-xs sm:text-sm text-emerald-400 text-center font-medium bg-emerald-500/10 border border-emerald-500/20 py-2.5 px-4 rounded-xl"
                   >
-                    Thank you! Your message has been dispatched. I will reply
-                    shortly.
+                    Thank you! Your message has been sent. I&apos;ll get back to
+                    you soon.
                   </motion.p>
                 )}
 
@@ -299,7 +305,7 @@ export default function ContactSection() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-xs sm:text-sm text-amber-300 text-center font-medium bg-amber-500/10 border border-amber-500/20 py-2.5 px-4 rounded-xl"
                   >
-                    Could not transmit via web form. Please email directly to{" "}
+                    Something went wrong sending your message. Please email me directly at{" "}
                     <a
                       href={`mailto:${portfolioData.intro.email}`}
                       className="underline font-bold text-white"
@@ -314,18 +320,6 @@ export default function ContactSection() {
           </div>
         </div>
       </div>
-
-      {/* Footer Baseline */}
-      <div className="border-t border-gray-800/80 py-8 text-center text-xs text-textMuted px-6">
-        <p>
-          &copy; {new Date().getFullYear()} {portfolioData.intro.name}. Engineered
-          with Next.js &amp; Tailwind CSS.
-        </p>
-        <p className="mt-2 text-gray-500 font-mono text-[11px]">
-          &ldquo;Code is like humor. When you have to explain it, it&apos;s
-          bad.&rdquo; &mdash; Cory House
-        </p>
-      </div>
-    </footer>
+    </section>
   );
 }

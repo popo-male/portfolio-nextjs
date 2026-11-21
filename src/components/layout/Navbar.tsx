@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
-import { portfolioData } from "@/lib/data";
+import { portfolioData } from "@/data/portfolio";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -20,7 +20,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
   const isManualScrollRef = useRef(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleNavClick = (sectionId: string) => {
     setActiveSection(sectionId);
@@ -41,7 +41,7 @@ export default function Navbar() {
     };
   }, []);
 
-  // Track active section via IntersectionObserver & scroll position
+  // Track the active section from scroll position
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -117,7 +117,7 @@ export default function Navbar() {
       aria-label="Main Navigation"
       className={`w-full fixed top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#0b0f19]/80 backdrop-blur-xl border-b border-gray-800/80 shadow-lg shadow-black/20"
+          ? "bg-background/80 backdrop-blur-xl border-b border-gray-800/80 shadow-lg shadow-black/20"
           : "bg-transparent border-b border-transparent"
       }`}
     >
@@ -131,13 +131,10 @@ export default function Navbar() {
           <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary group-hover:scale-105 transition-transform">
             YK.
           </span>
-          <span className="hidden sm:inline-block text-xs font-mono px-2 py-0.5 rounded border border-gray-800 bg-surface text-textMuted">
-            dev/data
-          </span>
         </a>
 
         {/* Desktop Navigation - Centered Floating Pill */}
-        <div className="hidden md:flex items-center gap-1 bg-[#111827]/90 border border-gray-700/60 px-2 py-1.5 rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.3)] backdrop-blur-md">
+        <div className="hidden md:flex items-center gap-1 bg-surface/90 border border-gray-700/60 px-2 py-1.5 rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.3)] backdrop-blur-md">
           {navItems.map((item) => {
             const sectionId = item.href.substring(1);
             const isActive = activeSection === sectionId;
@@ -192,7 +189,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-x-0 top-[61px] bg-[#0b0f19]/95 backdrop-blur-2xl border-b border-gray-800 shadow-2xl p-6 flex flex-col gap-3 z-40 max-h-[calc(100vh-61px)] overflow-y-auto"
+            className="md:hidden fixed inset-x-0 top-[61px] bg-background/95 backdrop-blur-2xl border-b border-gray-800 shadow-2xl p-6 flex flex-col gap-3 z-40 max-h-[calc(100vh-61px)] overflow-y-auto"
           >
             <div className="flex flex-col gap-1.5">
               {navItems.map((item) => {

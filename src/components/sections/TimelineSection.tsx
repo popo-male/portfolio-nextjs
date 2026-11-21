@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  portfolioData,
+import { portfolioData } from "@/data/portfolio";
+import type {
   ExperienceItem,
   EducationItem,
   WorkHighlight,
-} from "@/lib/data";
+} from "@/types/portfolio";
 import {
   Briefcase,
   GraduationCap,
@@ -20,7 +20,7 @@ export default function TimelineSection() {
   return (
     <section
       id="experience"
-      className="py-24 w-full bg-[#111827]/40 border-t border-gray-800/80 scroll-mt-24"
+      className="py-24 w-full bg-surface/40 border-t border-gray-800/80 scroll-mt-24"
     >
       <div className="max-w-5xl mx-auto px-6">
         {/* Experience Header */}
@@ -48,7 +48,7 @@ export default function TimelineSection() {
               >
                 {/* Timeline Node Dot */}
                 <div
-                  className={`absolute -left-[18px] top-1 h-8 w-8 bg-[#0b0f19] border-2 ${
+                  className={`absolute -left-[18px] top-1 h-8 w-8 bg-background border-2 ${
                     isCurrent
                       ? "border-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.45)]"
                       : "border-primary shadow-[0_0_12px_rgba(139,92,246,0.3)]"
@@ -64,9 +64,9 @@ export default function TimelineSection() {
                 </div>
 
                 {/* Main Card Container */}
-                <div className="bg-[#111827] rounded-3xl border border-gray-800/90 shadow-2xl shadow-black/25 overflow-hidden transition-all duration-300 hover:border-gray-700">
+                <div className="bg-surface rounded-3xl border border-gray-800/90 shadow-2xl shadow-black/25 overflow-hidden transition-all duration-300 hover:border-gray-700">
                   {/* Card Header: Role & Period */}
-                  <div className="p-6 sm:p-8 bg-gradient-to-r from-surface/80 to-[#111827] border-b border-gray-800/80">
+                  <div className="p-6 sm:p-8 bg-gradient-to-r from-surface/80 to-surface border-b border-gray-800/80">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2.5">
                       <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
                         {exp.role}
@@ -110,7 +110,7 @@ export default function TimelineSection() {
                       {exp.highlights.map((highlight: WorkHighlight, hIndex: number) => (
                         <div
                           key={hIndex}
-                          className="bg-[#0b0f19] p-4 sm:p-5 rounded-2xl border border-gray-800/80 hover:border-gray-700 transition-colors flex flex-col gap-2"
+                          className="bg-background p-4 sm:p-5 rounded-2xl border border-gray-800/80 hover:border-gray-700 transition-colors flex flex-col gap-2"
                         >
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
@@ -146,7 +146,7 @@ export default function TimelineSection() {
                   </div>
 
                   {/* Card Footer: Overall Technologies Used */}
-                  <div className="px-6 sm:px-8 py-4 bg-[#0b0f19]/80 border-t border-gray-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="px-6 sm:px-8 py-4 bg-background/80 border-t border-gray-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <span className="text-xs font-mono text-textMuted font-semibold">
                       Tech Stack Utilized:
                     </span>
@@ -191,12 +191,12 @@ export default function TimelineSection() {
                 className="relative pl-6 sm:pl-10"
               >
                 {/* Academic Node Dot */}
-                <div className="absolute -left-[18px] top-1.5 h-8 w-8 bg-[#0b0f19] border-2 border-secondary rounded-full flex items-center justify-center shadow-[0_0_12px_rgba(56,189,248,0.35)] z-10">
+                <div className="absolute -left-[18px] top-1.5 h-8 w-8 bg-background border-2 border-secondary rounded-full flex items-center justify-center shadow-[0_0_12px_rgba(56,189,248,0.35)] z-10">
                   <GraduationCap size={14} className="text-secondary" />
                 </div>
 
                 {/* Academic Card */}
-                <div className="bg-[#111827] p-6 sm:p-8 rounded-3xl border border-gray-800/90 shadow-xl shadow-black/20">
+                <div className="bg-surface p-6 sm:p-8 rounded-3xl border border-gray-800/90 shadow-xl shadow-black/20">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                     <h3 className="text-xl sm:text-2xl font-bold text-white">
                       {edu.degree}
@@ -210,7 +210,7 @@ export default function TimelineSection() {
                     {edu.institution}
                   </h4>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-[#0b0f19] border border-gray-800 text-xs sm:text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-background border border-gray-800 text-xs sm:text-sm">
                     <div className="sm:col-span-1 border-b sm:border-b-0 sm:border-r border-gray-800 pb-3 sm:pb-0 sm:pr-4">
                       <span className="text-textMuted block text-xs mb-1 font-mono uppercase tracking-wider">
                         Cumulative GPA

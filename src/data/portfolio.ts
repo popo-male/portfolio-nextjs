@@ -1,173 +1,15 @@
-export interface IntroData {
-  name: string;
-  title: string;
-  description: string;
-  location: string;
-  email: string;
-  phone: string;
-  github: string;
-  linkedin: string;
-}
-
-export interface AboutData {
-  specialty: string;
-  difference: string;
-}
-
-export type SkillDomain =
-  | "backend"
-  | "dataEngineering"
-  | "AI"
-  | "database"
-  | "devOps"
-  | "frontend";
-
-export interface SkillItem {
-  name: string;
-  category: SkillDomain;
-  categoryLabel: string;
-  level: number;
-  highlight?: boolean;
-  context: string;
-}
-
-export interface WorkHighlight {
-  domain: string;
-  title: string;
-  description: string;
-  keyTech: string[];
-}
-
-export interface ExperienceItem {
-  id: number;
-  role: string;
-  company: string;
-  location: string;
-  timeline: string;
-  summary: string;
-  highlights: WorkHighlight[];
-  technologies: string[];
-  responsibilities: string[]; // For backward compatibility
-}
-
-export interface EducationItem {
-  id: number;
-  institution: string;
-  degree: string;
-  cgpa: string;
-  timeline: string;
-  coursework: string;
-}
-
-export type ProjectCategory =
-  | "All"
-  | "Data Engineering"
-  | "AI & Machine Learning"
-  | "Full Stack & Web"
-  | "Systems";
-
-export interface ProjectItem {
-  id: number;
-  title: string;
-  category: "Data Engineering" | "AI & Machine Learning" | "Full Stack & Web" | "Systems";
-  description: string;
-  problem: string;
-  goal: string;
-  features: string[];
-  tech: string[];
-  timeline: string;
-  github: string;
-  demo: string;
-  image: string;
-}
-
-export interface CertificateItem {
-  id: number;
-  name: string;
-  provider: string;
-  date: string;
-  link: string;
-}
-
-export interface PortfolioData {
-  intro: IntroData;
-  about: AboutData;
-  skills: {
-    frontend: SkillItem[];
-    backend: SkillItem[];
-    database: SkillItem[];
-    dataEngineering: SkillItem[];
-    AI: SkillItem[];
-    devOps: SkillItem[];
-  };
-  experience: ExperienceItem[];
-  education: EducationItem[];
-  projects: ProjectItem[];
-  certificates: CertificateItem[];
-}
+import type { PortfolioData } from "@/types/portfolio";
 
 export const portfolioData: PortfolioData = {
   intro: {
     name: "Koh Yu Bin",
     title: "Software Developer | Data Science Enthusiast",
-    description: "I specialize in building backend architectures and integrating AI into production. I'm deeply interested in the intersection of software engineering and data science. I'm constantly exporing new ways to optimize performance and build data-driven applications.",
+    description: "I specialize in building backend architectures and integrating AI into production. I'm deeply interested in the intersection of software engineering and data science. I'm constantly exploring new ways to optimize performance and build data-driven applications.",
     location: "Kluang, Johor, Malaysia",
     email: "ybkoh5050@gmail.com",
     phone: "+6013-7993098",
     github: "https://github.com/popo-male",
     linkedin: "https://linkedin.com",
-  },
-  about: {
-    specialty: "Software Engineer | Software Developer | Data Science Enthusiast",
-    difference: "I combine robust backend engineering with data science workflows to build intelligent, data-driven applications."
-  },
-  skills: {
-    backend: [
-      { name: "Python", category: "backend", categoryLabel: "Backend & APIs", level: 95, highlight: true, context: "Core Language & Systems" },
-      { name: "FastAPI", category: "backend", categoryLabel: "Backend & APIs", level: 90, highlight: true, context: "Asynchronous REST Microservices" },
-      { name: "RESTful & SOAP APIs", category: "backend", categoryLabel: "Backend & APIs", level: 85, highlight: true, context: "Enterprise API Integration" },
-      { name: "Flask", category: "backend", categoryLabel: "Backend & APIs", level: 85, context: "Lightweight Web Services" },
-      { name: "Java", category: "backend", categoryLabel: "Backend & APIs", level: 80, context: "Object-Oriented Architectures" },
-      { name: "JavaScript", category: "backend", categoryLabel: "Backend & APIs", level: 75, context: "Full-Stack Scripting" },
-      { name: "Node.js", category: "backend", categoryLabel: "Backend & APIs", level: 60, context: "Runtime & CLI Scripts" },
-      { name: "Prisma", category: "backend", categoryLabel: "Backend & APIs", level: 75, context: "Type-Safe ORM Querying" },
-      { name: "JWT Authentication", category: "backend", categoryLabel: "Backend & APIs", level: 80, context: "Token Security & Authorization" },
-      { name: "CLI Development", category: "backend", categoryLabel: "Backend & APIs", level: 80, context: "Developer Automation Tools" },
-    ],
-    dataEngineering: [
-      { name: "ETL Pipelines", category: "dataEngineering", categoryLabel: "Data Engineering", level: 90, highlight: true, context: "Automated Data Ingestion & Transformation" },
-      { name: "Apache Airflow", category: "dataEngineering", categoryLabel: "Data Engineering", level: 85, highlight: true, context: "DAG Workflow Scheduling & Orchestration" },
-      { name: "PySpark", category: "dataEngineering", categoryLabel: "Data Engineering", level: 80, highlight: true, context: "Large-Scale Batch Data Processing" },
-      { name: "Polars", category: "dataEngineering", categoryLabel: "Data Engineering", level: 80, context: "High-Performance DataFrames" },
-      { name: "Data Validation (Great Expectations)", category: "dataEngineering", categoryLabel: "Data Engineering", level: 85, highlight: true, context: "Automated Data Contract Checks" },
-      { name: "Data Visualization", category: "dataEngineering", categoryLabel: "Data Engineering", level: 80, context: "Reporting & Metric Dashboards" },
-    ],
-    AI: [
-      { name: "Machine Learning", category: "AI", categoryLabel: "AI & Machine Learning", level: 85, highlight: true, context: "Supervised Modeling & Evaluation" },
-      { name: "MLflow", category: "AI", categoryLabel: "AI & Machine Learning", level: 80, highlight: true, context: "Model Serving, Versioning & Tracking" },
-      { name: "LLM & Agentic AI", category: "AI", categoryLabel: "AI & Machine Learning", level: 85, highlight: true, context: "Function Calling, Guardrails & Agents" },
-      { name: "Deep Learning (CNN)", category: "AI", categoryLabel: "AI & Machine Learning", level: 75, context: "Computer Vision & 99.6% Accuracy" },
-      { name: "NLP (VADER / Sentiment)", category: "AI", categoryLabel: "AI & Machine Learning", level: 80, context: "Lexical & Financial Sentiment Scoring" },
-    ],
-    database: [
-      { name: "PostgreSQL", category: "database", categoryLabel: "Databases", level: 85, highlight: true, context: "Relational Modeling, Indexing & Schemas" },
-      { name: "SQL", category: "database", categoryLabel: "Databases", level: 90, highlight: true, context: "Complex Joins, Aggregations & Query Plans" },
-      { name: "MySQL", category: "database", categoryLabel: "Databases", level: 80, context: "Relational Storage & Transactions" },
-      { name: "Elasticsearch", category: "database", categoryLabel: "Databases", level: 80, context: "Full-Text Search & Log Analytics" },
-    ],
-    devOps: [
-      { name: "Docker", category: "devOps", categoryLabel: "DevOps & Infrastructure", level: 85, highlight: true, context: "Multi-Stage Builds & Containerization" },
-      { name: "Linux / Ubuntu", category: "devOps", categoryLabel: "DevOps & Infrastructure", level: 90, highlight: true, context: "Server Administration & Shell Automation" },
-      { name: "Git", category: "devOps", categoryLabel: "DevOps & Infrastructure", level: 95, highlight: true, context: "Branching Strategies & Version Control" },
-      { name: "Nginx", category: "devOps", categoryLabel: "DevOps & Infrastructure", level: 75, context: "Reverse Proxy & Web Server Config" },
-      { name: "CI/CD Automation", category: "devOps", categoryLabel: "DevOps & Infrastructure", level: 80, context: "Automated Deployment & Testing" },
-    ],
-    frontend: [
-      { name: "React", category: "frontend", categoryLabel: "Frontend & Interfaces", level: 65, highlight: true, context: "Modern Component State & Hooks" },
-      { name: "Tailwind CSS", category: "frontend", categoryLabel: "Frontend & Interfaces", level: 80, highlight: true, context: "Responsive & Modern Design Systems" },
-      { name: "Streamlit", category: "frontend", categoryLabel: "Frontend & Interfaces", level: 85, highlight: true, context: "Interactive Data & AI Web Dashboards" },
-      { name: "HTML & CSS", category: "frontend", categoryLabel: "Frontend & Interfaces", level: 75, context: "Semantic Markup & Accessibility" },
-    ],
   },
   experience: [
     {
@@ -219,15 +61,6 @@ export const portfolioData: PortfolioData = {
         "Docker",
         "Linux",
       ],
-      responsibilities: [
-        "Developed and maintained ETL pipelines for data ingestion, transformation, and processing workflows.",
-        "Implemented and scheduled automated workflows using Apache Airflow to support recurring business operations.",
-        "Integrated MLflow for model serving, experiment tracking, and custom model wrapper implementation.",
-        "Designed and developed backend application logic to support internal business solutions and operational systems.",
-        "Developed SOAP and RESTful APIs for system integration and data communication between internal applications.",
-        "Performed deployment, monitoring, and maintenance tasks on Linux servers to support application reliability and system operations.",
-        "Collaborated in the development of internal enterprise applications tailored for business process automation and management."
-      ],
     },
     {
       id: 1,
@@ -272,13 +105,6 @@ export const portfolioData: PortfolioData = {
         "Watchdog",
         "Docker",
       ],
-      responsibilities: [
-        "Developed and evaluated machine learning models, including zero-shot classification for high-tech product identification and XGBoost for company name matching.",
-        "Integrated MLflow for experiment tracking and model versioning.",
-        "Built backend modules for ETL pipelines, including \"Front Door\" system to monitor landing zones, validate file formats, and standardize data.",
-        "Implemented data validation and quality checks using Pydantic and Great Expectations.",
-        "Gained hands-on experience with Docker, PySpark, Watchdog, PostgreSQL, MySQL, and backend automation."
-      ],
     },
   ],
   education: [
@@ -307,8 +133,8 @@ export const portfolioData: PortfolioData = {
       ],
       tech: ["React 19", "Vite", "Tailwind CSS 4", "Recharts", "FastAPI", "Python 3.13", "PostgreSQL", "yfinance", "Lucide React"],
       timeline: "Aug 2025 - Nov 2025",
-      github: "https://github.com/popo-male/stock-intelligence-backend", 
-      demo: "https://stock-intelligence-frontend-phi.vercel.app/", 
+      github: "https://github.com/popo-male/stock-intelligence-backend",
+      demo: "https://stock-intelligence-frontend-phi.vercel.app/",
       image: "/stock_platform_light.png"
     },
     {
@@ -373,9 +199,9 @@ export const portfolioData: PortfolioData = {
       ],
       tech: ["Python", "Machine Learning", "Scikit-Learn", "Random Forest", "SVC", "KNN"],
       timeline: "University Project",
-      github: "", 
-      demo: "", 
-      image: "" 
+      github: "",
+      demo: "",
+      image: ""
     },
     {
       id: 5,

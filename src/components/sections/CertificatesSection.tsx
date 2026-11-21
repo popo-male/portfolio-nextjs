@@ -1,14 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { portfolioData, CertificateItem } from "@/lib/data";
+import { portfolioData } from "@/data/portfolio";
+import type { CertificateItem } from "@/types/portfolio";
 import { Award, ExternalLink, CheckCircle2 } from "lucide-react";
 
 export default function CertificatesSection() {
   return (
     <section
       id="certificates"
-      className="py-24 w-full bg-[#0b0f19] border-t border-gray-800/80 relative overflow-hidden scroll-mt-24"
+      className="py-24 w-full bg-background border-t border-gray-800/80 relative overflow-hidden scroll-mt-24"
     >
       {/* Background glow */}
       <div
@@ -39,18 +40,18 @@ export default function CertificatesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: index * 0.06 }}
-                className="group relative bg-[#111827] border border-gray-800/90 rounded-2xl p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(139,92,246,0.15)] focus-visible:ring-2 focus-visible:ring-primary"
+                className="group relative bg-surface border border-gray-800/90 rounded-2xl p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(139,92,246,0.15)] focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    <div className="p-3 bg-[#0b0f19] group-hover:bg-primary/20 rounded-xl text-primary border border-gray-800 group-hover:border-primary/30 transition-colors duration-300">
+                    <div className="p-3 bg-background group-hover:bg-primary/20 rounded-xl text-primary border border-gray-800 group-hover:border-primary/30 transition-colors duration-300">
                       <Award
                         size={22}
                         className="group-hover:scale-110 transition-transform duration-300"
                       />
                     </div>
 
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold bg-[#0b0f19] text-secondary rounded-full border border-gray-800">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold bg-background text-secondary rounded-full border border-gray-800">
                       <CheckCircle2 size={12} className="text-emerald-400" />
                       {cert.provider}
                     </span>
