@@ -12,7 +12,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Netlify sets URL to the site's primary address at build time, so link
+// previews resolve to the right domain (including a future custom domain).
+const siteUrl = process.env.URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  alternates: { canonical: "/" },
   title: "Koh Yu Bin | Software Engineer & Data Science Enthusiast",
   description:
     "Portfolio of Koh Yu Bin, Associate Software Engineer specializing in backend systems, ETL pipelines, automated workflows, and machine learning solutions using Python, PostgreSQL, PySpark, and Docker.",
@@ -38,6 +44,11 @@ export const metadata: Metadata = {
       "Explore engineering projects in backend systems, ETL pipelines, and machine learning solutions.",
     type: "website",
     locale: "en_US",
+    url: "/",
+    siteName: "Koh Yu Bin | Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
   },
   icons: {
     icon: "/favicon.ico",

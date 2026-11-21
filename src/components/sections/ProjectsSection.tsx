@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import Image from "next/image";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 type ProjectFilter = "All" | ProjectCategory;
 
@@ -37,13 +38,7 @@ export default function ProjectsSection() {
       className="py-24 w-full bg-background border-t border-gray-800/80 scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Featured Projects &amp; Systems
-            </h2>
-          </div>
-
+        <SectionHeader eyebrow="Projects" title="Featured Projects & Systems">
           {/* Category Filter Tabs */}
           <div
             role="group"
@@ -69,7 +64,7 @@ export default function ProjectsSection() {
               );
             })}
           </div>
-        </div>
+        </SectionHeader>
 
         {/* Project Grid */}
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8">

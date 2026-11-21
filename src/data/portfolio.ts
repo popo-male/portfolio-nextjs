@@ -7,9 +7,12 @@ export const portfolioData: PortfolioData = {
     description: "I specialize in building backend architectures and integrating AI into production. I'm deeply interested in the intersection of software engineering and data science. I'm constantly exploring new ways to optimize performance and build data-driven applications.",
     location: "Kluang, Johor, Malaysia",
     email: "ybkoh5050@gmail.com",
-    phone: "+6013-7993098",
+    whatsapp: "https://wa.me/60137993098",
     github: "https://github.com/popo-male",
-    linkedin: "https://linkedin.com",
+    // TODO: add the LinkedIn profile URL; the icon stays hidden while this is empty
+    linkedin: "",
+    focusAreas: ["Backend APIs", "ETL Pipelines", "MLOps"],
+    coreStack: ["Python", "FastAPI", "Airflow", "PySpark", "PostgreSQL"],
   },
   experience: [
     {
@@ -219,7 +222,7 @@ export const portfolioData: PortfolioData = {
       timeline: "University Project",
       github: "",
       demo: "",
-      image: "/book_rental.png"
+      image: "/book_rental.jpg"
     },
     {
       id: 6,

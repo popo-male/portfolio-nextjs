@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { portfolioData } from "@/data/portfolio";
 import type { CertificateItem } from "@/types/portfolio";
 import { Award, ExternalLink, CheckCircle2 } from "lucide-react";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function CertificatesSection() {
   return (
@@ -18,13 +19,7 @@ export default function CertificatesSection() {
       />
 
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-          <div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Certifications
-            </h2>
-          </div>
-        </div>
+        <SectionHeader eyebrow="Credentials" title="Certifications" />
 
         {/* Certificate Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

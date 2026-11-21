@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Code2, BrainCircuit, Rocket, Database, ArrowUpRight } from "lucide-react";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function AboutSection() {
   const cards = [
@@ -49,14 +50,7 @@ export default function AboutSection() {
       className="py-24 w-full bg-surface/40 border-y border-gray-800/80 scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-12 text-left">
-          <span className="text-xs font-mono font-bold text-primary tracking-widest uppercase mb-2 block">
-            ABOUT ME
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Background &amp; Philosophy
-          </h2>
-        </div>
+        <SectionHeader eyebrow="About Me" title="Background & Philosophy" />
 
         {/* Vertically Centered Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">

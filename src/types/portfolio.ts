@@ -4,9 +4,14 @@ export interface IntroData {
   description: string;
   location: string;
   email: string;
-  phone: string;
+  /** wa.me link, e.g. https://wa.me/60123456789 */
+  whatsapp: string;
   github: string;
+  /** Empty string hides the LinkedIn link. */
   linkedin: string;
+  /** Shown in the hero profile card. */
+  focusAreas: string[];
+  coreStack: string[];
 }
 
 export interface WorkHighlight {

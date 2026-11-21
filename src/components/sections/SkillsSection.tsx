@@ -45,6 +45,7 @@ import {
   SiHtml5,
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 interface TechItem {
   name: string;
@@ -179,15 +180,12 @@ export default function SkillsSection() {
     >
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
-            Technologies &amp; Skills
-          </h2>
-          <p className="text-textMuted text-sm sm:text-base leading-relaxed">
-            Core technologies across backend systems, automated data pipelines,
-            and machine learning workflows.
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="Skills"
+          title="Technologies & Skills"
+          description="Core technologies across backend systems, automated data pipelines, and machine learning workflows."
+          className="mb-10"
+        />
 
         {/* 1. Movement Bar (Top Ticker) */}
         <div className="relative w-full mb-14">

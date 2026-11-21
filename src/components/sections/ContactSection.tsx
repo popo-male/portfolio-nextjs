@@ -10,11 +10,11 @@ import {
   Loader2,
   Copy,
   Check,
-  Phone,
   ArrowUpRight,
 } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { portfolioData } from "@/data/portfolio";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 const FORM_ENDPOINT = "/__forms.html";
 
@@ -78,12 +78,12 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           {/* Left Column: Direct Info & Socials */}
           <div className="lg:col-span-5 flex flex-col">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 tracking-tight">
-              Let&apos;s Build Together
-            </h2>
-            <p className="text-textMuted mb-8 leading-relaxed text-sm sm:text-base">
-              I&apos;m always open to discussing new opportunities, creative projects, or partnerships.
-            </p>
+            <SectionHeader
+              eyebrow="Contact"
+              title="Let's Build Together"
+              description="I'm always open to discussing new opportunities, creative projects, or partnerships."
+              className="mb-8"
+            />
 
             {/* Direct Contact Cards */}
             <div className="space-y-3.5 mb-8">
@@ -124,11 +124,23 @@ export default function ContactSection() {
                 <span>{portfolioData.intro.location}</span>
               </div>
 
-              {/* Phone */}
-              <div className="p-3.5 rounded-xl bg-surface border border-gray-800 flex items-center text-sm text-textMuted">
-                <Phone size={18} className="mr-3 text-emerald-400 shrink-0" />
-                <span>{portfolioData.intro.phone}</span>
-              </div>
+              {/* WhatsApp */}
+              <a
+                href={portfolioData.intro.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Chat on WhatsApp (opens in new tab)"
+                className="group p-3.5 rounded-xl bg-surface border border-gray-800 hover:border-emerald-500/40 flex items-center justify-between gap-3 text-sm text-textMuted hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                <span className="flex items-center">
+                  <FaWhatsapp size={18} className="mr-3 text-emerald-400 shrink-0" />
+                  Chat on WhatsApp
+                </span>
+                <ArrowUpRight
+                  size={15}
+                  className="text-textMuted group-hover:text-emerald-400 transition-colors"
+                />
+              </a>
             </div>
 
             {/* Social Links */}
@@ -143,15 +155,17 @@ export default function ContactSection() {
                 <FaGithub size={20} />
               </a>
 
-              <a
-                href={portfolioData.intro.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit Koh Yu Bin's LinkedIn profile (opens in new tab)"
-                className="min-h-[44px] min-w-[44px] p-3 bg-surface border border-gray-800 rounded-xl hover:border-secondary hover:text-secondary text-textMuted transition-all flex items-center justify-center focus-visible:ring-2 focus-visible:ring-secondary"
-              >
-                <FaLinkedin size={20} />
-              </a>
+              {portfolioData.intro.linkedin && (
+                <a
+                  href={portfolioData.intro.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visit Koh Yu Bin's LinkedIn profile (opens in new tab)"
+                  className="min-h-[44px] min-w-[44px] p-3 bg-surface border border-gray-800 rounded-xl hover:border-secondary hover:text-secondary text-textMuted transition-all flex items-center justify-center focus-visible:ring-2 focus-visible:ring-secondary"
+                >
+                  <FaLinkedin size={20} />
+                </a>
+              )}
 
               <a
                 href={`mailto:${portfolioData.intro.email}?subject=Direct%20Inquiry%20from%20Portfolio`}

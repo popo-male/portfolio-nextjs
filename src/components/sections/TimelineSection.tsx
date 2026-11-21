@@ -15,6 +15,7 @@ import {
   Award,
   Layers,
 } from "lucide-react";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function TimelineSection() {
   return (
@@ -24,13 +25,11 @@ export default function TimelineSection() {
     >
       <div className="max-w-5xl mx-auto px-6">
         {/* Experience Header */}
-        <div className="mb-14">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Work Experience
-            </h2>
-          </div>
-        </div>
+        <SectionHeader
+          eyebrow="Experience"
+          title="Work Experience"
+          className="mb-14"
+        />
 
         {/* Experience Timeline */}
         <div className="relative border-l-2 border-gray-800/90 ml-3 sm:ml-6 space-y-14 mb-24">
@@ -169,16 +168,12 @@ export default function TimelineSection() {
 
         {/* Academic Background Section */}
         <div id="education" className="scroll-mt-24">
-          <div className="mb-10">
-            <div className="flex items-center gap-4">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Academic Background
-              </h2>
-              <div className="h-px flex-grow bg-gray-800 hidden sm:block">
-                <div className="h-0.5 w-20 bg-gradient-to-r from-secondary to-primary rounded-full" />
-              </div>
-            </div>
-          </div>
+          <SectionHeader
+            eyebrow="Education"
+            title="Academic Background"
+            as="h3"
+            className="mb-10"
+          />
 
           <div className="relative border-l-2 border-gray-800/90 ml-3 sm:ml-6 space-y-12">
             {portfolioData.education.map((edu: EducationItem, index: number) => (
