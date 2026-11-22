@@ -14,7 +14,7 @@ The site is one statically prerendered page made of stacked sections:
 | --- | --- |
 | Hero | Introduction, current role, primary calls to action |
 | About | Short bio and four focus areas |
-| Skills | Scrolling ticker plus skills grouped by domain |
+| Skills | Three core-strength cards (backend, data, AI/ML) and a compact supporting toolkit |
 | Projects | Filterable summary cards; each opens a dialog with problem, goal, key features, tech stack and links |
 | Experience | Work timeline and academic background |
 | Certifications | Credential cards linking to the issuer's verification page |
@@ -64,7 +64,8 @@ src/
     projects/                 Project card, details dialog and their parts
     ui/                       Shared building blocks (SectionHeader, Modal,
                               ResumeViewer, BackToTop)
-  data/portfolio.ts           All site content
+  data/portfolio.ts           Site content: intro, experience, projects, certificates
+  data/skills.ts              Skills section content
   data/resume.json            Generated list of CV page images
   types/portfolio.ts          Types for the content
 ```
@@ -75,7 +76,7 @@ The `@/` import alias maps to `src/`.
 
 **Content is separate from presentation.** `src/data/portfolio.ts` exports a single `portfolioData` object typed by `src/types/portfolio.ts`. Sections read from it and never hardcode personal details, so a typo in the data shape fails the build instead of breaking the page.
 
-**Server components by default.** `page.tsx`, the hero and the footer render on the server. A component is marked `"use client"` only when it needs browser state or animation (navbar scroll tracking, project filter, skills ticker, contact form, scroll-reveal effects).
+**Server components by default.** `page.tsx`, the hero and the footer render on the server. A component is marked `"use client"` only when it needs browser state or animation (navbar scroll tracking, project filter, contact form, scroll-reveal effects).
 
 **Styling through theme tokens.** Colours are defined once in the `@theme` block of `globals.css` (`background`, `surface`, `primary`, `secondary`, `textMain`, `textMuted`) and used as Tailwind utilities such as `bg-surface` or `text-primary`. Change a token there to re-theme the whole site.
 
@@ -94,7 +95,7 @@ The `@/` import alias maps to `src/`.
 | Jobs and education | `experience`, `education` |
 | Projects | `projects` (put the screenshot in `public/` and reference it as `/file.jpg`) |
 | Certificates | `certificates` |
-| Skills lists | `clusters` in `src/components/sections/SkillsSection.tsx` |
+| Skills (core strengths and supporting toolkit) | `src/data/skills.ts` |
 | Page title and description for search engines | `metadata` in `src/app/layout.tsx` |
 
 ## Important details

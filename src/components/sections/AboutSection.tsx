@@ -63,7 +63,7 @@ export default function AboutSection() {
             className="lg:col-span-6 text-textMuted space-y-6 leading-relaxed text-base sm:text-lg"
           >
             <p>
-              I'm a{" "}
+              I&apos;m a{" "}
               <strong className="text-textMain font-semibold">
                 Backend & AI System Engineer
               </strong>{" "}

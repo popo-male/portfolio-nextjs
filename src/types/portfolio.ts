@@ -83,3 +83,29 @@ export interface PortfolioData {
   projects: ProjectItem[];
   certificates: CertificateItem[];
 }
+
+/** A named set of tools shown inside a core strength card. */
+export interface ToolGroup {
+  label: string;
+  tools: string[];
+}
+
+/** One of the headline areas given the most space in the Skills section. */
+export interface CoreStrength {
+  id: "backend" | "data" | "ai";
+  title: string;
+  summary: string;
+  competencies: string[];
+  toolGroups: ToolGroup[];
+}
+
+/** A compact row in the supporting toolkit. */
+export interface SupportingSkillGroup {
+  label: string;
+  items: string[];
+}
+
+export interface SkillsData {
+  coreStrengths: CoreStrength[];
+  supporting: SupportingSkillGroup[];
+}
