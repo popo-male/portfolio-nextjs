@@ -3,7 +3,7 @@ import type { PortfolioData } from "@/types/portfolio";
 export const portfolioData: PortfolioData = {
   intro: {
     name: "Koh Yu Bin",
-    title: "Software Developer | Data Science Enthusiast",
+    title: "Software & AI System Engineer",
     description: "I specialize in building backend architectures and integrating AI into production. I'm deeply interested in the intersection of software engineering and data science. I'm constantly exploring new ways to optimize performance and build data-driven applications.",
     location: "Kluang, Johor, Malaysia",
     email: "ybkoh5050@gmail.com",
@@ -11,7 +11,7 @@ export const portfolioData: PortfolioData = {
     github: "https://github.com/popo-male",
     // TODO: add the LinkedIn profile URL; the icon stays hidden while this is empty
     linkedin: "",
-    focusAreas: ["Backend APIs", "ETL Pipelines", "MLOps"],
+    focusAreas: ["Backend APIs", "Web Application", "ETL Pipelines", "MLOps"],
     coreStack: ["Python", "FastAPI", "Airflow", "PySpark", "PostgreSQL"],
   },
   experience: [

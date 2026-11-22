@@ -7,7 +7,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 export default function AboutSection() {
   const cards = [
     {
-      title: "Clean Code & Architecture",
+      title: "Software Engineering & Architecture",
       description:
         "I write maintainable, efficient, and well-structured code designed for scalability and team collaboration.",
       icon: <Code2 size={20} className="text-cyan-400" />,
@@ -16,9 +16,9 @@ export default function AboutSection() {
       glowColor: "from-cyan-500/15",
     },
     {
-      title: "Data Pipelines & ETL",
+      title: "Data Engineering & ETL Automation",
       description:
-        "I design automated workflows that extract, transform and load complex data, ensuring clean, structured and reliable data is always available for downstream applications.",
+        "I build automated data pipelines, orchestrating workflows, processing large datasets, and developing reliable ETL systems for efficient data integration and transformation.",
       icon: <Database size={20} className="text-sky-400" />,
       accentBg: "bg-sky-500/10 border-sky-500/25",
       borderHover: "hover:border-sky-500/40",
@@ -27,16 +27,16 @@ export default function AboutSection() {
     {
       title: "Applied AI & MLOps",
       description:
-        "I bridge the gap between data science and production by deploying AI models into real-world applications.",
+        "I integrate AI/ML capabilities into applications, developing model-serving solutions, managing ML workflows, and deploying intelligent systems into production environments.",
       icon: <BrainCircuit size={20} className="text-emerald-400" />,
       accentBg: "bg-emerald-500/10 border-emerald-500/25",
       borderHover: "hover:border-emerald-500/40",
       glowColor: "from-emerald-500/15",
     },
     {
-      title: "Scalable Cloud Infrastructure",
+      title: "Full-Stack & Web Development",
       description:
-        "I architect containerized environments and automated CI/CD pipelines to ensure applications run smoothly under heavy loads.",
+        "I develop end-to-end web applications, connecting frontend interfaces with backend services, designing APIs, and building seamless user experiences.",
       icon: <Rocket size={20} className="text-purple-400" />,
       accentBg: "bg-purple-500/10 border-purple-500/25",
       borderHover: "hover:border-purple-500/40",
@@ -63,15 +63,15 @@ export default function AboutSection() {
             className="lg:col-span-6 text-textMuted space-y-6 leading-relaxed text-base sm:text-lg"
           >
             <p>
-              I am an{" "}
+              I'm a{" "}
               <strong className="text-textMain font-semibold">
-                Associate Software Engineer
+                Backend & AI System Engineer
               </strong>{" "}
-              specializing in backend development, ETL architectures, and machine
-              learning pipelines. My core focus lies at the intersection of
-              production software engineering and data science workflows. My core
-              toolkit includes Python, Java, Go, Node.js, and modern web frameworks
-              like NestJS and Next.js.
+              specializing in backend development, web application development, 
+              automated data pipelines, ETL architectures, and AI/ML integration. 
+              My core focus lies at the intersection of production software 
+              engineering and data science workflows. My core toolkit includes Python,
+              Java, Go, Node.js, and modern web frameworks like NestJS and Next.js.
             </p>
             <p>
               For me, development is about more than just writing code. It&apos;s

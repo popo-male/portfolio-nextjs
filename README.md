@@ -15,7 +15,7 @@ The site is one statically prerendered page made of stacked sections:
 | Hero | Introduction, current role, primary calls to action |
 | About | Short bio and four focus areas |
 | Skills | Scrolling ticker plus skills grouped by domain |
-| Projects | Filterable project cards with problem, goal, tech stack and links |
+| Projects | Filterable summary cards; each opens a dialog with problem, goal, key features, tech stack and links |
 | Experience | Work timeline and academic background |
 | Certifications | Credential cards linking to the issuer's verification page |
 | Contact | Email, WhatsApp, GitHub and a contact form |
@@ -61,7 +61,9 @@ src/
   components/
     layout/                   Navbar, Footer
     sections/                 One component per page section
-    ui/                       Shared building blocks (SectionHeader, BackToTop)
+    projects/                 Project card, details dialog and their parts
+    ui/                       Shared building blocks (SectionHeader, Modal,
+                              ResumeViewer, BackToTop)
   data/portfolio.ts           All site content
   data/resume.json            Generated list of CV page images
   types/portfolio.ts          Types for the content
@@ -78,6 +80,8 @@ The `@/` import alias maps to `src/`.
 **Styling through theme tokens.** Colours are defined once in the `@theme` block of `globals.css` (`background`, `surface`, `primary`, `secondary`, `textMain`, `textMuted`) and used as Tailwind utilities such as `bg-surface` or `text-primary`. Change a token there to re-theme the whole site.
 
 **Consistent section headers.** Every section title is rendered by `components/ui/SectionHeader.tsx` (eyebrow label, title, optional description and right-aligned slot).
+
+**Dialogs.** The CV viewer and the project details share `components/ui/Modal.tsx`, a wrapper around the native `<dialog>` element (focus trap, Escape and backdrop come from the browser).
 
 **Navigation.** The navbar links to section ids (`#about`, `#projects`, ...) and highlights the active one from scroll position. Adding a section means adding the component to `page.tsx` and an entry to `navItems` in `Navbar.tsx`.
 
