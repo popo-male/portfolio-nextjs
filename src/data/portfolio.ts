@@ -145,6 +145,29 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: 2,
+      title: "DevOps Investigation Agent",
+      category: "AI & Machine Learning",
+      description: "An AI agent that investigates failed GitLab CI jobs in Python projects. It reads the job log and project files, gathers evidence with read-only tools, and produces a ranked root-cause report in which every claim is checked against a real log line.",
+      problem: "Debugging a failed CI pipeline is mostly manual: developers scroll through thousands of log lines to find the first real error, cross-check CI configs and dependency files, and guess what changed since the last green run. Generic LLM answers make it worse by inventing confident causes the logs don't support.",
+      goal: "Build a trustworthy investigation agent that runs entirely on a local 4B model on a 6 GB laptop GPU. The harness (not the model) enforces evidence, confidence and limits, and a reproducible evaluation shows it beats a single-call baseline.",
+      features: [
+        "Hand-written agent loop on Ollama with schema-constrained JSON actions, 9 read-only tools, step and time limits, no-progress detection and duplicate-call blocking.",
+        "Deterministic log digest (sections, ranked error signals, collapsed tail) and last-passing-log comparison, so a 100k-line log fits in an 8K-token context.",
+        "Citation grounding: every evidence item is checked to exist, match the quoted line and have actually been shown to the model; result was 0 ungrounded citations across evaluation runs.",
+        "Confidence rules enforced in code: claims are downgraded when the evidence is weak, and the run pauses with 'needs input' to ask for a missing manifest instead of guessing.",
+        "Secret redaction at ingestion with stable placeholders, plus prompt-injection defences against instructions hidden in job logs.",
+        "Pause and resume: a paused investigation continues with the added files and keeps its trace and evidence.",
+        "Live investigation console with real-time progress over Server-Sent Events, a pipeline view, a source drawer that opens each cited line, dark/light themes and hand-built SVG charts."
+      ],
+      tech: ["Python", "Ollama", "FastAPI", "React", "Qwen3 4B", "Pydantic", "SQLite"],
+      timeline: "Aug 2026 - Nov 2026",
+      github: "",
+      gitlab: "https://gitlab.com/devops-investigation-agent/devops-invest-agent",
+      demo: "",
+      image: "/devops_agent.png"
+    },
+    {
+      id: 3,
       title: "Stock Intelligence Platform",
       category: "AI & Machine Learning",
       description: "A premium, real-time market intelligence dashboard correlating financial news volume and sentiment trends with live stock market data.",
@@ -163,7 +186,7 @@ export const portfolioData: PortfolioData = {
       image: "/stock_platform.png"
     },
     {
-      id: 3,
+      id: 4,
       title: "Article Ingestion Pipeline",
       category: "Data Engineering",
       description: "An automated batch ingestion and NLP data processing pipeline that scrapes financial news feeds, scores sentiment, and extracts summaries.",
@@ -182,7 +205,7 @@ export const portfolioData: PortfolioData = {
       image: "/article_ingest.png"
     },
     {
-      id: 4,
+      id: 5,
       title: "API Spec Document Agent",
       category: "AI & Machine Learning",
       description: "An intelligent, multi-agent AI system that parses raw OpenAPI/Swagger (JSON/YAML) and SOAP WSDL (XML) files to automatically generate comprehensive, premium-grade Markdown API documentation.",
@@ -211,7 +234,7 @@ export const portfolioData: PortfolioData = {
       image: "/api_doc_agent.png"
     },
     {
-      id: 5,
+      id: 6,
       title: "Cardiovascular Risk Prediction",
       category: "AI & Machine Learning",
       description: "Machine learning models trained to accurately predict an individual’s cardiovascular risk based on multi-variate diagnostic records.",
@@ -226,10 +249,10 @@ export const portfolioData: PortfolioData = {
       timeline: "University Project",
       github: "",
       demo: "",
-      image: ""
+      image: "/cardiovascular.png"
     },
     {
-      id: 6,
+      id: 7,
       title: "Books Rental Services Website",
       category: "Full Stack & Web",
       description: "A responsive web application that allows users to browse and rent books online with client-side session management.",
@@ -247,7 +270,7 @@ export const portfolioData: PortfolioData = {
       image: "/book_rental.jpg"
     },
     {
-      id: 7,
+      id: 8,
       title: "Hospital Management System",
       category: "Systems",
       description: "A structured software architecture and Graphical User Interface (GUI) for managing hospital patient and clinical records.",
@@ -265,7 +288,7 @@ export const portfolioData: PortfolioData = {
       image: "/hospital_management.jpg"
     },
     {
-      id: 8,
+      id: 9,
       title: "Traffic Sign Classification",
       category: "AI & Machine Learning",
       description: "A highly accurate Convolutional Neural Network (CNN) deep learning model for classifying traffic signs with 99.6% validation accuracy.",

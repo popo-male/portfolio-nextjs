@@ -1,10 +1,10 @@
 import { ExternalLink, Layers } from "lucide-react";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaGitlab } from "react-icons/fa";
 import type { ProjectItem } from "@/types/portfolio";
 
 /** Code / Live Demo buttons, or a note when the project has no public links. */
 export default function ProjectLinks({ project }: { project: ProjectItem }) {
-  if (!project.github && !project.demo) {
+  if (!project.github && !project.gitlab && !project.demo) {
     return (
       <span className="text-xs text-textMuted italic flex items-center gap-1.5">
         <Layers size={14} />
@@ -26,7 +26,19 @@ export default function ProjectLinks({ project }: { project: ProjectItem }) {
           className="min-h-[40px] px-3.5 py-1.5 rounded-lg bg-surface border border-gray-800 hover:border-gray-600 text-sm text-textMain hover:text-white flex items-center gap-2 transition-colors"
         >
           <FaGithub size={16} className="text-textMuted" />
-          Code
+          GitHub
+        </a>
+      )}
+      {project.gitlab && (
+        <a
+          href={project.gitlab}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`View ${project.title} on GitLab (opens in new tab)`}
+          className="min-h-[40px] px-3.5 py-1.5 rounded-lg bg-surface border border-gray-800 hover:border-gray-600 text-sm text-textMain hover:text-white flex items-center gap-2 transition-colors"
+        >
+          <FaGitlab size={16} className="text-textMuted" />
+          GitLab
         </a>
       )}
       {project.demo && (

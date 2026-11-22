@@ -60,8 +60,10 @@ export interface ProjectItem {
   features: string[];
   tech: string[];
   timeline: string;
-  /** Empty string when there is no public repository. */
+  /** GitHub repository URL; empty string when there is none. */
   github: string;
+  /** GitLab repository URL, for projects hosted there instead. */
+  gitlab?: string;
   /** Empty string when there is no live demo. */
   demo: string;
   /** Path under /public; empty string renders the fallback banner. */

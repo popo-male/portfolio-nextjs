@@ -1,5 +1,5 @@
 import { ArrowRight, Calendar, ExternalLink } from "lucide-react";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaGitlab } from "react-icons/fa";
 import type { ProjectItem } from "@/types/portfolio";
 import ProjectBanner from "./ProjectBanner";
 
@@ -92,6 +92,17 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
                 className="w-9 h-9 flex items-center justify-center rounded-lg bg-background border border-gray-800 text-textMuted hover:text-white hover:border-gray-600 transition-colors"
               >
                 <FaGithub size={16} />
+              </a>
+            )}
+            {project.gitlab && (
+              <a
+                href={project.gitlab}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${project.title} on GitLab (opens in new tab)`}
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-background border border-gray-800 text-textMuted hover:text-white hover:border-gray-600 transition-colors"
+              >
+                <FaGitlab size={16} />
               </a>
             )}
             {project.demo && (
