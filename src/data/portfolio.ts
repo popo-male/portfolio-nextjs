@@ -123,6 +123,28 @@ export const portfolioData: PortfolioData = {
   projects: [
     {
       id: 1,
+      title: "Trade by Enterprise Characteristics (TEC) Data Platform",
+      category: "Data Engineering",
+      description: "A data integration and analytics platform for the Department of Statistics Malaysia (DOSM) that links large-scale customs trade records with the Malaysia Statistical Business Register (MSBR).",
+      problem: "Trade records from the Royal Malaysian Customs Department and business profiles in the MSBR live in separate systems with inconsistent company names and formats, so linking them by hand is slow and error-prone.",
+      goal: "Build an integrated data processing ecosystem: an internal management portal, scalable automated ETL pipelines, and ML-powered processing that improve data integration and operational efficiency.",
+      features: [
+        "Built backend services and RESTful APIs with FastAPI to power the internal portal, data management, and integration with processing services.",
+        "Designed automated ETL workflows with PySpark on Hadoop to ingest, validate, transform, and integrate large volumes of trade and business registry data.",
+        "Implemented Apache Airflow DAGs to schedule, coordinate, and monitor the data processing workflows.",
+        "Integrated a zero-shot classification model to identify and classify high-technology products.",
+        "Developed an ML-powered company name matching solution using an XGBoost classifier.",
+        "Used MLflow for experiment tracking, model management, and model serving.",
+        "Configured Azure DevOps pipelines to automate testing and deployment."
+      ],
+      tech: ["Python", "FastAPI", "Apache Airflow", "PySpark", "Hadoop", "XGBoost", "MLflow", "PostgreSQL", "Docker", "Azure DevOps"],
+      timeline: "Company Project",
+      github: "",
+      demo: "",
+      image: "/tec.jpg"
+    },
+    {
+      id: 2,
       title: "Stock Intelligence Platform",
       category: "AI & Machine Learning",
       description: "A premium, real-time market intelligence dashboard correlating financial news volume and sentiment trends with live stock market data.",
@@ -138,10 +160,10 @@ export const portfolioData: PortfolioData = {
       timeline: "Aug 2025 - Nov 2025",
       github: "https://github.com/popo-male/stock-intelligence-backend",
       demo: "https://stock-intelligence-frontend-phi.vercel.app/",
-      image: "/stock_platform_light.png"
+      image: "/stock_platform.png"
     },
     {
-      id: 2,
+      id: 3,
       title: "Article Ingestion Pipeline",
       category: "Data Engineering",
       description: "An automated batch ingestion and NLP data processing pipeline that scrapes financial news feeds, scores sentiment, and extracts summaries.",
@@ -160,7 +182,7 @@ export const portfolioData: PortfolioData = {
       image: "/article_ingest.png"
     },
     {
-      id: 3,
+      id: 4,
       title: "API Spec Document Agent",
       category: "AI & Machine Learning",
       description: "An intelligent, multi-agent AI system that parses raw OpenAPI/Swagger (JSON/YAML) and SOAP WSDL (XML) files to automatically generate comprehensive, premium-grade Markdown API documentation.",
@@ -189,7 +211,7 @@ export const portfolioData: PortfolioData = {
       image: "/api_doc_agent.png"
     },
     {
-      id: 4,
+      id: 5,
       title: "Cardiovascular Risk Prediction",
       category: "AI & Machine Learning",
       description: "Machine learning models trained to accurately predict an individual’s cardiovascular risk based on multi-variate diagnostic records.",
@@ -207,7 +229,7 @@ export const portfolioData: PortfolioData = {
       image: ""
     },
     {
-      id: 5,
+      id: 6,
       title: "Books Rental Services Website",
       category: "Full Stack & Web",
       description: "A responsive web application that allows users to browse and rent books online with client-side session management.",
@@ -225,7 +247,7 @@ export const portfolioData: PortfolioData = {
       image: "/book_rental.jpg"
     },
     {
-      id: 6,
+      id: 7,
       title: "Hospital Management System",
       category: "Systems",
       description: "A structured software architecture and Graphical User Interface (GUI) for managing hospital patient and clinical records.",
@@ -243,7 +265,7 @@ export const portfolioData: PortfolioData = {
       image: "/hospital_management.jpg"
     },
     {
-      id: 7,
+      id: 8,
       title: "Traffic Sign Classification",
       category: "AI & Machine Learning",
       description: "A highly accurate Convolutional Neural Network (CNN) deep learning model for classifying traffic signs with 99.6% validation accuracy.",

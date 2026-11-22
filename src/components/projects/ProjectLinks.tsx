@@ -7,7 +7,10 @@ export default function ProjectLinks({ project }: { project: ProjectItem }) {
   if (!project.github && !project.demo) {
     return (
       <span className="text-xs text-textMuted italic flex items-center gap-1.5">
-        <Layers size={14} /> Academic project &middot; not public
+        <Layers size={14} />
+        {project.timeline === "Company Project"
+          ? "Company project · source confidential"
+          : "Academic project · not public"}
       </span>
     );
   }
