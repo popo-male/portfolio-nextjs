@@ -2,7 +2,12 @@ import Image from "next/image";
 import { ArrowRight, MapPin } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { portfolioData } from "@/data/portfolio";
+import CodeWindow from "@/components/ui/CodeWindow";
 import ResumeViewer from "@/components/ui/ResumeViewer";
+import TypedCode, {
+  type CodeToken,
+  type TypedCodeLine,
+} from "@/components/ui/TypedCode";
 
 const { intro, experience } = portfolioData;
 
@@ -10,31 +15,45 @@ const currentRole =
   experience.find((exp) => exp.timeline.toLowerCase().includes("present")) ??
   experience[0];
 
+const punct = "text-gray-500";
+
 /** One `key = value` line of the profile card, coloured like Python source. */
-function CodeLine({ name, value }: { name: string; value: string | string[] }) {
-  return (
-    <div className="pl-6 sm:pl-8">
-      <span className="text-sky-300">{name}</span>
-      <span className="text-gray-500"> = </span>
-      {Array.isArray(value) ? (
-        <>
-          <span className="text-gray-400">[</span>
-          {value.map((item, index) => (
-            <span key={item}>
-              <span className="text-emerald-300">&quot;{item}&quot;</span>
-              {index < value.length - 1 && (
-                <span className="text-gray-500">, </span>
-              )}
-            </span>
-          ))}
-          <span className="text-gray-400">]</span>
-        </>
-      ) : (
-        <span className="text-emerald-300">&quot;{value}&quot;</span>
-      )}
-    </div>
-  );
+function assignment(name: string, value: string | string[]): TypedCodeLine {
+  const tokens: CodeToken[] = [
+    { text: name, className: "text-sky-300" },
+    { text: " = ", className: punct },
+  ];
+
+  if (Array.isArray(value)) {
+    tokens.push({ text: "[", className: "text-gray-400" });
+    value.forEach((item, index) => {
+      tokens.push({ text: `"${item}"`, className: "text-emerald-300" });
+      if (index < value.length - 1)
+        tokens.push({ text: ", ", className: punct });
+    });
+    tokens.push({ text: "]", className: "text-gray-400" });
+  } else {
+    tokens.push({ text: `"${value}"`, className: "text-emerald-300" });
+  }
+
+  return { indent: 4, tokens };
 }
+
+const profileLines: TypedCodeLine[] = [
+  {
+    tokens: [
+      { text: "class ", className: "text-purple-400" },
+      { text: "Engineer", className: "text-amber-300" },
+      { text: ":", className: punct },
+    ],
+  },
+  assignment("name", intro.name),
+  assignment("role", currentRole.role),
+  assignment("company", currentRole.company),
+  assignment("focus", intro.focusAreas),
+  assignment("stack", intro.coreStack),
+  assignment("fuel", "coffee"),
+];
 
 export default function HeroSection() {
   return (
@@ -114,34 +133,14 @@ export default function HeroSection() {
             className="absolute inset-0 bg-gradient-to-tr from-primary/25 to-secondary/25 rounded-full blur-[80px] pointer-events-none"
           />
 
-          <div className="relative rounded-2xl border border-gray-800/90 bg-surface/90 backdrop-blur shadow-2xl shadow-black/40 overflow-hidden">
-            {/* Window chrome */}
-            <div
-              aria-hidden="true"
-              className="flex items-center gap-2 px-4 py-3 border-b border-gray-800/90 bg-background/60"
-            >
-              <span className="w-3 h-3 rounded-full bg-red-400/80" />
-              <span className="w-3 h-3 rounded-full bg-amber-400/80" />
-              <span className="w-3 h-3 rounded-full bg-emerald-400/80" />
-              <span className="ml-3 text-xs font-mono text-textMuted">
-                profile.py
-              </span>
-            </div>
-
+          <CodeWindow
+            filename="profile.py"
+            className="relative bg-surface/90 backdrop-blur shadow-2xl shadow-black/40"
+          >
             <div className="p-5 sm:p-6 pb-12 sm:pb-14 font-mono text-xs sm:text-[13px] leading-7 text-gray-300 break-words">
-              <div>
-                <span className="text-purple-400">class</span>{" "}
-                <span className="text-amber-300">Engineer</span>
-                <span className="text-gray-500">:</span>
-              </div>
-              <CodeLine name="name" value={intro.name} />
-              <CodeLine name="role" value={currentRole.role} />
-              <CodeLine name="company" value={currentRole.company} />
-              <CodeLine name="focus" value={intro.focusAreas} />
-              <CodeLine name="stack" value={intro.coreStack} />
-              <CodeLine name="fuel" value="coffee" />
+              <TypedCode lines={profileLines} />
             </div>
-          </div>
+          </CodeWindow>
 
           {/* Mascot sticker, shown near its native size so it stays sharp */}
           <div className="absolute bottom-0 right-3 sm:-right-3 w-32 sm:w-40 rotate-3 rounded-xl overflow-hidden border border-gray-700/80 shadow-xl shadow-black/50 hover:rotate-0 transition-transform duration-300">

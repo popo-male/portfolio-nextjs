@@ -112,7 +112,7 @@ export default function TimelineSection() {
                           className="bg-background p-4 sm:p-5 rounded-2xl border border-gray-800/80 hover:border-gray-700 transition-colors flex flex-col gap-2"
                         >
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
+                            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                               <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                               <span className="text-xs font-mono font-semibold text-secondary uppercase tracking-wider">
                                 {highlight.domain}

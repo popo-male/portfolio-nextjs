@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { portfolioData } from "@/data/portfolio";
+import CodeWindow from "@/components/ui/CodeWindow";
 import SectionHeader from "@/components/ui/SectionHeader";
 
 const FORM_ENDPOINT = "/__forms.html";
@@ -55,7 +56,9 @@ export default function ContactSection() {
       });
 
       if (!response.ok) {
-        throw new Error(`Form submission failed with status ${response.status}`);
+        throw new Error(
+          `Form submission failed with status ${response.status}`,
+        );
       }
 
       form.reset();
@@ -101,13 +104,17 @@ export default function ContactSection() {
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  aria-label={copied ? "Email copied" : "Copy email address to clipboard"}
+                  aria-label={
+                    copied ? "Email copied" : "Copy email address to clipboard"
+                  }
                   className="px-3 py-1.5 rounded-lg bg-surface border border-gray-700/80 text-xs text-textMuted hover:text-white hover:border-gray-500 transition-colors flex items-center gap-1.5 shrink-0 focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   {copied ? (
                     <>
                       <Check size={13} className="text-emerald-400" />
-                      <span className="text-emerald-400 font-semibold">Copied!</span>
+                      <span className="text-emerald-400 font-semibold">
+                        Copied!
+                      </span>
                     </>
                   ) : (
                     <>
@@ -133,7 +140,10 @@ export default function ContactSection() {
                 className="group p-3.5 rounded-xl bg-surface border border-gray-800 hover:border-emerald-500/40 flex items-center justify-between gap-3 text-sm text-textMuted hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <span className="flex items-center">
-                  <FaWhatsapp size={18} className="mr-3 text-emerald-400 shrink-0" />
+                  <FaWhatsapp
+                    size={18}
+                    className="mr-3 text-emerald-400 shrink-0"
+                  />
                   Chat on WhatsApp
                 </span>
                 <ArrowUpRight
@@ -179,158 +189,175 @@ export default function ContactSection() {
 
           {/* Right Column: Accessible Form */}
           <div className="lg:col-span-7">
-            <motion.form
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="bg-surface p-7 sm:p-9 rounded-2xl border border-gray-800/90 shadow-2xl shadow-black/20 space-y-5"
-              name="contact"
-              method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              onSubmit={handleSubmit}
+            <CodeWindow
+              filename="bash — contact"
+              className="bg-surface shadow-2xl shadow-black/20"
             >
-              <input type="hidden" name="form-name" value="contact" />
-              {/* Honeypot: hidden from people, bots that fill it get discarded */}
-              <p className="hidden" aria-hidden="true">
-                <label>
-                  Don&apos;t fill this out:{" "}
-                  <input name="bot-field" tabIndex={-1} autoComplete="off" />
-                </label>
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Name field with accessible label */}
-                <div>
-                  <label
-                    htmlFor="contact-name"
-                    className="block text-xs font-medium text-textMuted mb-1.5"
-                  >
-                    Your Name <span className="text-primary">*</span>
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    name="name"
-                    required
-                    autoComplete="name"
-                    maxLength={100}
-                    placeholder="e.g. Alex Tan"
-                    className={inputClasses}
-                  />
-                </div>
-
-                {/* Email field with accessible label */}
-                <div>
-                  <label
-                    htmlFor="contact-email"
-                    className="block text-xs font-medium text-textMuted mb-1.5"
-                  >
-                    Your Email <span className="text-primary">*</span>
-                  </label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    name="email"
-                    required
-                    autoComplete="email"
-                    placeholder="alex@example.com"
-                    className={inputClasses}
-                  />
-                </div>
-              </div>
-
-              {/* Subject field with accessible label */}
-              <div>
-                <label
-                  htmlFor="contact-subject"
-                  className="block text-xs font-medium text-textMuted mb-1.5"
-                >
-                  Subject <span className="text-primary">*</span>
-                </label>
-                <input
-                  id="contact-subject"
-                  type="text"
-                  name="subject"
-                  required
-                  maxLength={150}
-                  placeholder="e.g. Backend Engineer Opportunity"
-                  className={inputClasses}
-                />
-              </div>
-
-              {/* Message field with accessible label */}
-              <div>
-                <label
-                  htmlFor="contact-message"
-                  className="block text-xs font-medium text-textMuted mb-1.5"
-                >
-                  Message <span className="text-primary">*</span>
-                </label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  required
-                  maxLength={5000}
-                  placeholder="Share a few details about your project or role..."
-                  rows={4}
-                  className={`${inputClasses} resize-none`}
-                />
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="group w-full min-h-[50px] bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:via-purple-500 hover:to-indigo-500 text-white font-bold py-3.5 px-6 rounded-xl border border-violet-400/40 hover:border-violet-300 transition-all duration-300 flex items-center justify-center gap-2.5 shadow-[0_4px_20px_rgba(139,92,246,0.35)] hover:shadow-[0_4px_30px_rgba(139,92,246,0.6)] hover:scale-[1.01] active:scale-[0.98] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none focus-visible:ring-2 focus-visible:ring-secondary"
+              <motion.form
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="p-7 sm:p-9 space-y-5"
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
               >
-                {status === "sending" ? (
-                  <>
-                    <span>Sending message...</span>
-                    <Loader2 size={18} className="animate-spin" />
-                  </>
-                ) : (
-                  <>
-                    <span>Send Message</span>
-                    <Send
-                      size={17}
-                      className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5"
-                    />
-                  </>
-                )}
-              </button>
+                {/* Terminal prompt, decorative */}
+                <p aria-hidden="true" className="font-mono text-xs sm:text-sm">
+                  <span className="text-emerald-400">visitor@portfolio</span>
+                  <span className="text-gray-500">:</span>
+                  <span className="text-sky-300">~</span>
+                  <span className="text-gray-500">$ </span>
+                  <span className="text-gray-200">
+                    ./send-message --to yubin
+                  </span>
+                </p>
 
-              {/* Accessible Live Status Feedback */}
-              <div role="status" aria-live="polite" className="pt-1">
-                {status === "sent" && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-xs sm:text-sm text-emerald-400 text-center font-medium bg-emerald-500/10 border border-emerald-500/20 py-2.5 px-4 rounded-xl"
-                  >
-                    Thank you! Your message has been sent. I&apos;ll get back to
-                    you soon.
-                  </motion.p>
-                )}
+                <input type="hidden" name="form-name" value="contact" />
+                {/* Honeypot: hidden from people, bots that fill it get discarded */}
+                <p className="hidden" aria-hidden="true">
+                  <label>
+                    Don&apos;t fill this out:{" "}
+                    <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                  </label>
+                </p>
 
-                {status === "error" && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-xs sm:text-sm text-amber-300 text-center font-medium bg-amber-500/10 border border-amber-500/20 py-2.5 px-4 rounded-xl"
-                  >
-                    Something went wrong sending your message. Please email me directly at{" "}
-                    <a
-                      href={`mailto:${portfolioData.intro.email}`}
-                      className="underline font-bold text-white"
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Name field with accessible label */}
+                  <div>
+                    <label
+                      htmlFor="contact-name"
+                      className="block text-xs font-medium text-textMuted mb-1.5"
                     >
-                      {portfolioData.intro.email}
-                    </a>
-                    .
-                  </motion.p>
-                )}
-              </div>
-            </motion.form>
+                      Your Name <span className="text-primary">*</span>
+                    </label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      name="name"
+                      required
+                      autoComplete="name"
+                      maxLength={100}
+                      placeholder="e.g. Alex Tan"
+                      className={inputClasses}
+                    />
+                  </div>
+
+                  {/* Email field with accessible label */}
+                  <div>
+                    <label
+                      htmlFor="contact-email"
+                      className="block text-xs font-medium text-textMuted mb-1.5"
+                    >
+                      Your Email <span className="text-primary">*</span>
+                    </label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      name="email"
+                      required
+                      autoComplete="email"
+                      placeholder="alex@example.com"
+                      className={inputClasses}
+                    />
+                  </div>
+                </div>
+
+                {/* Subject field with accessible label */}
+                <div>
+                  <label
+                    htmlFor="contact-subject"
+                    className="block text-xs font-medium text-textMuted mb-1.5"
+                  >
+                    Subject <span className="text-primary">*</span>
+                  </label>
+                  <input
+                    id="contact-subject"
+                    type="text"
+                    name="subject"
+                    required
+                    maxLength={150}
+                    placeholder="e.g. Backend Engineer Opportunity"
+                    className={inputClasses}
+                  />
+                </div>
+
+                {/* Message field with accessible label */}
+                <div>
+                  <label
+                    htmlFor="contact-message"
+                    className="block text-xs font-medium text-textMuted mb-1.5"
+                  >
+                    Message <span className="text-primary">*</span>
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    required
+                    maxLength={5000}
+                    placeholder="Share a few details about your project or role..."
+                    rows={4}
+                    className={`${inputClasses} resize-none`}
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="group w-full min-h-[50px] bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:via-purple-500 hover:to-indigo-500 text-white font-bold py-3.5 px-6 rounded-xl border border-violet-400/40 hover:border-violet-300 transition-all duration-300 flex items-center justify-center gap-2.5 shadow-[0_4px_20px_rgba(139,92,246,0.35)] hover:shadow-[0_4px_30px_rgba(139,92,246,0.6)] hover:scale-[1.01] active:scale-[0.98] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none focus-visible:ring-2 focus-visible:ring-secondary"
+                >
+                  {status === "sending" ? (
+                    <>
+                      <span className="font-mono">$ sending...</span>
+                      <Loader2 size={18} className="animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      <span className="font-mono">$ send --message</span>
+                      <Send
+                        size={17}
+                        className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                      />
+                    </>
+                  )}
+                </button>
+
+                {/* Accessible Live Status Feedback */}
+                <div role="status" aria-live="polite" className="pt-1">
+                  {status === "sent" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-xs sm:text-sm text-emerald-400 text-center font-medium bg-emerald-500/10 border border-emerald-500/20 py-2.5 px-4 rounded-xl"
+                    >
+                      Thank you! Your message has been sent. I&apos;ll get back
+                      to you soon.
+                    </motion.p>
+                  )}
+
+                  {status === "error" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-xs sm:text-sm text-amber-300 text-center font-medium bg-amber-500/10 border border-amber-500/20 py-2.5 px-4 rounded-xl"
+                    >
+                      Something went wrong sending your message. Please email me
+                      directly at{" "}
+                      <a
+                        href={`mailto:${portfolioData.intro.email}`}
+                        className="underline font-bold text-white"
+                      >
+                        {portfolioData.intro.email}
+                      </a>
+                      .
+                    </motion.p>
+                  )}
+                </div>
+              </motion.form>
+            </CodeWindow>
           </div>
         </div>
       </div>

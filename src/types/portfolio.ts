@@ -93,6 +93,8 @@ export interface ToolGroup {
 /** One of the headline areas given the most space in the Skills section. */
 export interface CoreStrength {
   id: "backend" | "data" | "ai";
+  /** File name shown in the card's editor tab, e.g. "backend.py". */
+  file: string;
   title: string;
   summary: string;
   competencies: string[];

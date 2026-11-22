@@ -10,6 +10,7 @@ export const skillsData: SkillsData = {
   coreStrengths: [
     {
       id: "backend",
+      file: "backend.py",
       title: "Backend Engineering",
       summary:
         "Designing and building the services, APIs and application logic that business systems run on.",
@@ -25,6 +26,7 @@ export const skillsData: SkillsData = {
     },
     {
       id: "data",
+      file: "pipelines.py",
       title: "Data Engineering",
       summary:
         "Building automated pipelines that ingest, validate and transform data so it is reliable downstream.",
@@ -36,6 +38,7 @@ export const skillsData: SkillsData = {
     },
     {
       id: "ai",
+      file: "models.py",
       title: "AI & Machine Learning",
       summary:
         "Training models and integrating them into production systems, from classic ML to LLM agents.",

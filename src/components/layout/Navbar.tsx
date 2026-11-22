@@ -131,6 +131,14 @@ export default function Navbar() {
           <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary group-hover:scale-105 transition-transform">
             YK.
           </span>
+          {/* Shell-style path that follows the active section */}
+          <span
+            aria-hidden="true"
+            className="hidden xl:inline font-mono text-xs text-textMuted"
+          >
+            <span className="text-gray-600">~/</span>
+            {activeSection}
+          </span>
         </a>
 
         {/* Desktop Navigation - Centered Floating Pill */}
